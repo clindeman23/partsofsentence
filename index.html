@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Parts of a Sentence</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#faf7f0;--paper2:#f3efe4;--ink:#1a1a1a;
+  --red:#e63946;--red2:#c1121f;--muted:#6b6457;
+  --line:#d9d2c5;--surface:#ffffff;
+  --correct:#2d6a4f;--wrong:#c1121f;
+  --cbg:rgba(45,106,79,.1);--wbg:rgba(193,18,31,.07);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden;}
+html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);}
+body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(circle,rgba(26,26,26,.04) 1px,transparent 1px);background-size:14px 14px;pointer-events:none;z-index:0;}
+
+/* TABS */
+#tabs{position:sticky;top:0;top:env(safe-area-inset-top,0px);z-index:200;background:var(--ink);display:flex;align-items:stretch;overflow-x:auto;scrollbar-width:none;border-bottom:4px solid var(--red);-webkit-overflow-scrolling:touch;}
+#tabs::-webkit-scrollbar{display:none;}
+.tab{padding:.6rem .9rem;font-family:'DM Mono',monospace;font-size:.7rem;font-weight:500;letter-spacing:.04em;color:rgba(255,255,255,.4);cursor:pointer;border:none;background:transparent;transition:all .15s;white-space:nowrap;border-right:1px solid rgba(255,255,255,.07);}
+.tab:hover{color:rgba(255,255,255,.8);}
+.tab.active{background:var(--red);color:white;font-weight:700;}
+
+/* VIEWS */
+.view{display:none;position:relative;z-index:1;}
+.view.active{display:block;}
+.pw{max-width:min(860px,96vw);margin:0 auto;padding:clamp(1.5rem,4vw,3rem) clamp(1rem,4vw,2.5rem) clamp(4rem,8vw,6rem);width:100%;padding-left:max(clamp(1rem,4vw,2.5rem),env(safe-area-inset-left,0px));padding-right:max(clamp(1rem,4vw,2.5rem),env(safe-area-inset-right,0px));}
+
+/* HOME */
+#view-home{background:var(--ink);min-height:100vh;display:flex;flex-direction:column;}
+.masthead{border-bottom:3px solid var(--red);padding:clamp(2rem,5vw,4rem) clamp(1rem,4vw,2.5rem) clamp(1.5rem,3vw,2.5rem);max-width:min(860px,96vw);margin:0 auto;width:100%;padding-left:max(clamp(1rem,4vw,2.5rem),env(safe-area-inset-left,0px));padding-right:max(clamp(1rem,4vw,2.5rem),env(safe-area-inset-right,0px));}
+.mast-rule{display:flex;align-items:center;gap:.7rem;margin-bottom:1.2rem;}
+.mast-rule::before,.mast-rule::after{content:'';flex:1;height:1px;background:var(--red);}
+.mast-issue{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--red);letter-spacing:.12em;white-space:nowrap;}
+.mast-title{font-family:'Playfair Display',serif;font-size:clamp(3.5rem,12vw,7rem);font-weight:900;line-height:.9;color:white;letter-spacing:-.02em;margin-bottom:.6rem;}
+.mast-title em{color:var(--red);font-style:normal;}
+.mast-sub{font-size:.9rem;color:rgba(255,255,255,.45);font-family:'DM Mono',monospace;letter-spacing:.04em;}
+.home-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr));gap:1px;background:rgba(255,255,255,.06);border-top:1px solid rgba(255,255,255,.08);flex:1;}
+.hcard{background:var(--ink);padding:1.5rem 1.3rem;cursor:pointer;transition:background .15s;border-right:1px solid rgba(255,255,255,.06);display:flex;flex-direction:column;gap:.45rem;}
+.hcard:hover{background:#242424;}
+.hcard-num{font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:900;color:var(--red);line-height:1;opacity:.65;}
+.hcard-title{font-family:'DM Sans',sans-serif;font-weight:700;font-size:.92rem;color:white;}
+.hcard-desc{font-size:.76rem;color:rgba(255,255,255,.38);line-height:1.5;}
+.hcard-tag{display:inline-block;margin-top:auto;font-family:'DM Mono',monospace;font-size:.62rem;color:var(--red);letter-spacing:.06em;}
+
+/* SECTION BANNER */
+.sec-banner{background:var(--ink);padding:1rem 1.3rem;margin-bottom:1.8rem;display:flex;align-items:center;gap:.9rem;border-left:6px solid var(--red);}
+.sec-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--red);line-height:1;flex-shrink:0;}
+.sec-label{font-family:'DM Mono',monospace;font-size:.6rem;color:rgba(255,255,255,.35);letter-spacing:.1em;}
+.sec-name{font-family:'Playfair Display',serif;font-size:clamp(1.1rem,3vw,1.5rem);font-weight:700;color:white;line-height:1.1;}
+
+/* RULE CARDS */
+.rule{background:var(--surface);border:1.5px solid var(--line);padding:1.3rem 1.4rem;margin:1rem 0;position:relative;}
+.rule::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--red);}
+.rule.alt::before{background:var(--ink);}
+.rule.note::before{background:#f4a261;}
+.rule-label{font-family:'DM Mono',monospace;font-size:.62rem;font-weight:500;color:var(--red);letter-spacing:.1em;margin-bottom:.45rem;}
+.rule.alt .rule-label{color:var(--muted);}
+.rule-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--ink);margin-bottom:.55rem;line-height:1.2;}
+.rule-body{font-size:.93rem;line-height:1.75;color:var(--ink);}
+.rule-body strong{color:var(--red);}
+.rule.alt .rule-body strong{color:var(--ink);text-decoration:underline;}
+
+/* EXAMPLES */
+.ex{background:var(--paper2);border:1px solid var(--line);padding:.75rem .95rem;margin:.8rem 0;font-size:.91rem;}
+.ex-lbl{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--muted);letter-spacing:.08em;margin-bottom:.35rem;}
+.ex p,.ex li{line-height:1.7;color:var(--ink);}
+.ex ul{list-style:none;}
+.ex ul li::before{content:'→ ';color:var(--red);font-weight:700;}
+/* highlight spans */
+.hs{background:rgba(230,57,70,.12);padding:1px 3px;border-radius:2px;font-weight:700;}/* subject */
+.hv{background:rgba(26,26,26,.09);padding:1px 3px;border-radius:2px;font-weight:700;font-style:italic;}/* verb */
+.hdo{background:rgba(0,100,180,.1);padding:1px 3px;border-radius:2px;font-weight:700;color:#005a9e;}/* DO */
+.hio{background:rgba(0,150,80,.1);padding:1px 3px;border-radius:2px;font-weight:700;color:#006837;}/* IO */
+.hsc{background:rgba(130,0,200,.1);padding:1px 3px;border-radius:2px;font-weight:700;color:#6200ae;}/* SC */
+.br{color:var(--muted);font-style:italic;font-size:.87em;}
+
+/* HEADS UP */
+.headsup{background:rgba(244,162,97,.1);border-left:4px solid #f4a261;padding:.75rem .95rem;margin:.8rem 0;font-size:.87rem;line-height:1.6;}
+.headsup strong{color:#c75d00;font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.06em;}
+
+/* REMEMBER */
+.remember{background:var(--ink);color:white;padding:.95rem 1.3rem;margin:1.1rem 0;display:flex;align-items:center;gap:.8rem;}
+.remember-icon{font-size:1.4rem;flex-shrink:0;}
+.remember-text{font-size:.88rem;line-height:1.65;}
+.remember-text strong{color:var(--red);}
+
+/* STEP CARDS (numbered rules) */
+.step{display:grid;grid-template-columns:38px 1fr;gap:.8rem;align-items:start;background:var(--surface);border:1.5px solid var(--line);padding:1.2rem 1.3rem;margin:.8rem 0;}
+.step-n{width:38px;height:38px;background:var(--red);color:white;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:700;font-size:1.1rem;flex-shrink:0;}
+.step-label{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--red);letter-spacing:.08em;margin-bottom:.25rem;}
+.step-title{font-weight:700;font-size:.95rem;margin-bottom:.2rem;}
+.step-body{font-size:.87rem;color:var(--muted);line-height:1.6;}
+
+/* SENTENCE TYPE CARDS */
+.stypes{display:grid;grid-template-columns:1fr 1fr;gap:.85rem;margin:1.1rem 0;}
+.scard{border:1.5px solid var(--line);padding:1.1rem;background:var(--surface);}
+.scard-head{display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem;}
+.sdot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+.sname{font-family:'DM Mono',monospace;font-weight:500;font-size:.78rem;letter-spacing:.06em;}
+.scard-rule{font-size:.85rem;color:var(--muted);margin-bottom:.55rem;line-height:1.5;}
+.scard-ex{font-size:.84rem;font-style:italic;color:var(--ink);line-height:1.65;}
+.scard-mark{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--muted);margin-top:.3rem;}
+
+/* TABLE */
+.ctable{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.88rem;}
+.ctable th{background:var(--ink);color:white;font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.06em;padding:.55rem .85rem;text-align:left;}
+.ctable td{padding:.55rem .85rem;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.5;}
+.ctable tr:nth-child(even) td{background:var(--paper2);}
+
+/* DIVIDER */
+.div{display:flex;align-items:center;gap:.75rem;margin:1.6rem 0 1.1rem;}
+.div::before,.div::after{content:'';flex:1;height:1.5px;background:var(--line);}
+.div-label{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--muted);letter-spacing:.1em;white-space:nowrap;}
+
+/* QUIZ */
+.qblock{background:var(--surface);border:1.5px solid var(--line);border-top:3px solid var(--ink);padding:1.3rem 1.4rem;margin:1.4rem 0;}
+.qblock h3{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;margin-bottom:.2rem;}
+.qsub{font-size:.83rem;color:var(--muted);margin-bottom:1rem;}
+.qq{background:var(--paper);border:1.5px solid var(--line);padding:.95rem 1rem;margin:.65rem 0;transition:border-color .2s,background .2s;}
+.qq.q-correct{border-color:var(--correct);background:var(--cbg);}
+.qq.q-wrong{border-color:var(--wrong);background:var(--wbg);}
+.qq-row{display:flex;align-items:baseline;gap:.45rem;margin-bottom:.6rem;}
+.qq-num{font-family:'DM Mono',monospace;font-size:.7rem;background:var(--ink);color:white;padding:.14rem .42rem;flex-shrink:0;}
+.qq-text{font-weight:600;font-size:.92rem;line-height:1.5;}
+.qq-opts{display:flex;flex-wrap:wrap;gap:.38rem;}
+.qq-opt{background:var(--paper2);border:1.5px solid var(--line);padding:.33rem .8rem;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.84rem;cursor:pointer;transition:all .15s;color:var(--ink);}
+.qq-opt:hover:not(:disabled){border-color:var(--ink);background:white;}
+.qq-opt.opt-correct{background:var(--correct);border-color:var(--correct);color:white;}
+.qq-opt.opt-wrong{background:var(--wrong);border-color:var(--wrong);color:white;}
+.qq-opt.opt-reveal{background:var(--correct);border-color:var(--correct);color:white;}
+.qq-opt:disabled{cursor:default;}
+.qq-exp{margin-top:.5rem;padding:.42rem .65rem;font-size:.82rem;font-weight:600;line-height:1.5;display:none;}
+.qq-exp.show{display:block;}
+.qq-exp.correct{background:var(--cbg);color:var(--correct);}
+.qq-exp.wrong{background:var(--wbg);color:var(--wrong);}
+.score-bar{display:flex;align-items:center;justify-content:space-between;background:var(--ink);padding:.7rem 1rem;margin-top:.9rem;flex-wrap:wrap;gap:.5rem;}.score-kern{word-break:break-all;}
+.score-display{font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;color:var(--red);}
+.score-kern{font-size:1.05rem;letter-spacing:1px;}
+.reset-btn{background:var(--red);color:white;border:none;padding:.36rem .9rem;font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.04em;cursor:pointer;}
+.reset-btn:hover{background:var(--red2);}
+
+/* PAGE NAV */
+.pnav{display:flex;justify-content:space-between;margin-top:2.2rem;gap:.7rem;flex-wrap:wrap;}
+.pnb{background:var(--ink);color:white;border:none;padding:.52rem 1.2rem;font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.05em;cursor:pointer;}
+.pnb:hover{background:#2d2d2d;}
+.pnb.nx{background:var(--red);}
+.pnb.nx:hover{background:var(--red2);}
+
+
+/* ── LARGE (1200px+) ── */
+@media(min-width:1200px){
+  .pw{max-width:min(960px,90vw);}
+  .rule{padding:1.6rem 1.8rem;}
+  .qblock{padding:1.6rem 1.8rem;}
+  .ctable{font-size:.93rem;}
+}
+
+/* ── TABLET (601-900px) ── */
+@media(min-width:601px) and (max-width:900px){
+  .mast-title{font-size:clamp(3.5rem,9vw,5.5rem);}
+  .stypes{grid-template-columns:1fr 1fr;}
+}
+
+/* ── MOBILE (≤600px) ── full pass ── */
+@media(max-width:600px){
+  /* typography */
+  .mast-title{font-size:clamp(3rem,13vw,4.5rem);}
+  .sec-name{font-size:1.1rem;}
+  .sec-num{font-size:1.6rem;}
+
+  /* tabs — smaller, still scrollable */
+  .tab{font-size:.65rem;padding:.55rem .7rem;letter-spacing:.02em;}
+
+  /* home grid — 2 columns */
+  .home-grid{grid-template-columns:1fr 1fr;}
+  .hcard{padding:1.1rem .95rem;}
+  .hcard-num{font-size:2.2rem;}
+  .hcard-title{font-size:.82rem;}
+  .hcard-desc{font-size:.7rem;}
+
+  /* section banner */
+  .sec-banner{padding:.8rem 1rem;margin-bottom:1.3rem;}
+
+  /* rule cards */
+  .rule{padding:1rem 1.05rem;}
+  .rule-title{font-size:1.05rem;}
+  .rule-body{font-size:.88rem;}
+  .ex{padding:.65rem .8rem;font-size:.86rem;}
+  .headsup{padding:.65rem .8rem;font-size:.83rem;}
+  .remember{padding:.8rem 1rem;gap:.65rem;}
+  .remember-icon{font-size:1.1rem;}
+  .remember-text{font-size:.82rem;}
+
+  /* step cards — tighten */
+  .step{grid-template-columns:30px 1fr;gap:.6rem;padding:1rem .95rem;}
+  .step-n{width:30px;height:30px;font-size:.85rem;}
+  .step-title{font-size:.88rem;}
+  .step-body{font-size:.82rem;}
+
+  /* sentence type cards — single column */
+  .stypes{grid-template-columns:1fr;}
+  .scard{padding:.95rem 1rem;}
+
+  /* table — scrollable container */
+  .ctable-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:1rem 0;}
+  .ctable{font-size:.8rem;min-width:420px;margin:0;}
+  .ctable th{font-size:.62rem;padding:.45rem .7rem;}
+  .ctable td{padding:.45rem .7rem;}
+
+  /* quiz */
+  .qblock{padding:1rem 1.05rem;}
+  .qblock h3{font-size:1rem;}
+  .qq{padding:.8rem .9rem;}
+  .qq-num{font-size:.65rem;padding:.12rem .38rem;}
+  .qq-text{font-size:.86rem;}
+  .qq-opt{padding:.32rem .7rem;font-size:.8rem;}
+  .qq-exp{font-size:.79rem;padding:.38rem .6rem;}
+  .score-bar{padding:.6rem .85rem;gap:.4rem;}
+  .score-display{font-size:1rem;}
+  .score-kern{font-size:.95rem;letter-spacing:.5px;}
+  .reset-btn{padding:.32rem .8rem;font-size:.67rem;}
+
+  /* page nav */
+  .pnav{flex-direction:column;gap:.55rem;}
+  .pnb{text-align:center;padding:.5rem 1rem;font-size:.68rem;}
+  .pnb.nx{order:-1;}
+
+  /* divider */
+  .div{margin:1.2rem 0 .8rem;}
+  .div-label{font-size:.58rem;}
+}
+
+/* ── VERY SMALL (≤360px) ── */
+@media(max-width:360px){
+  .mast-title{font-size:clamp(2.5rem,14vw,3.5rem);}
+  .home-grid{grid-template-columns:1fr;}
+  .tab{padding:.5rem .55rem;font-size:.6rem;}
+  .stypes{grid-template-columns:1fr;}
+  .sec-name{font-size:1rem;}
+}
+</style>
+</head>
+<body>
+
+<nav id="tabs">
+  <button class="tab active" onclick="sv('home')">HOME</button>
+  <button class="tab" onclick="sv('s1')">01 · SUBJECTS &amp; PREDICATES</button>
+  <button class="tab" onclick="sv('s2')">02 · FINDING THE SUBJECT</button>
+  <button class="tab" onclick="sv('s3')">03 · COMPOUND S &amp; V</button>
+  <button class="tab" onclick="sv('s4')">04 · SUBJECT COMPLEMENTS</button>
+  <button class="tab" onclick="sv('s5')">05 · DIRECT OBJECTS</button>
+  <button class="tab" onclick="sv('s6')">06 · INDIRECT OBJECTS</button>
+  <button class="tab" onclick="sv('s7')">07 · SENTENCE PURPOSE</button>
+</nav>
+
+<!-- HOME -->
+<div class="view active" id="view-home">
+  <div class="masthead">
+    <div class="mast-rule"><div class="mast-issue">English I &nbsp;·&nbsp; Mr. Lindeman &nbsp;·&nbsp; Grammar Unit</div></div>
+    <div class="mast-title">PARTS<br>OF A<br><em>SENTENCE</em></div>
+    <div class="mast-sub">Seven sections &nbsp;·&nbsp; Notes &nbsp;·&nbsp; Examples &nbsp;·&nbsp; Practice quizzes</div>
+  </div>
+  <div class="home-grid">
+    <div class="hcard" onclick="sv('s1')"><div class="hcard-num">01</div><div class="hcard-title">Subjects &amp; Predicates</div><div class="hcard-desc">Simple vs. complete subjects and predicates</div><div class="hcard-tag">START HERE →</div></div>
+    <div class="hcard" onclick="sv('s2')"><div class="hcard-num">02</div><div class="hcard-title">Finding the Subject</div><div class="hcard-desc">4 rules for tricky sentences</div><div class="hcard-tag">READ →</div></div>
+    <div class="hcard" onclick="sv('s3')"><div class="hcard-num">03</div><div class="hcard-title">Compound Subjects &amp; Verbs</div><div class="hcard-desc">Joined by conjunctions, same verb or subject</div><div class="hcard-tag">READ →</div></div>
+    <div class="hcard" onclick="sv('s4')"><div class="hcard-num">04</div><div class="hcard-title">Subject Complements</div><div class="hcard-desc">Predicate nominatives and predicate adjectives</div><div class="hcard-tag">READ →</div></div>
+    <div class="hcard" onclick="sv('s5')"><div class="hcard-num">05</div><div class="hcard-title">Direct Objects</div><div class="hcard-desc">Who or what receives the action</div><div class="hcard-tag">READ →</div></div>
+    <div class="hcard" onclick="sv('s6')"><div class="hcard-num">06</div><div class="hcard-title">Indirect Objects</div><div class="hcard-desc">To whom / for whom the action is done</div><div class="hcard-tag">READ →</div></div>
+    <div class="hcard" onclick="sv('s7')"><div class="hcard-num">07</div><div class="hcard-title">Classifying Sentences</div><div class="hcard-desc">Declarative, imperative, interrogative, exclamatory</div><div class="hcard-tag">READ →</div></div>
+  </div>
+</div>
+
+<!-- S1: SUBJECTS & PREDICATES -->
+<div class="view" id="view-s1"><div class="pw">
+  <div class="sec-banner"><div class="sec-num">01</div><div><div class="sec-label">PARTS OF A SENTENCE</div><div class="sec-name">Subjects &amp; Predicates</div></div></div>
+
+  <div class="rule">
+    <div class="rule-label">THE BASICS</div>
+    <div class="rule-title">Subject and Predicate</div>
+    <div class="rule-body">The <strong>subject</strong> tells whom or what the sentence is about. The <strong>predicate</strong> tells something about the subject.</div>
+    <div class="ex"><div class="ex-lbl">EXAMPLE</div><p><span class="hs">Some residents of the desert</span> <span class="hv">can survive</span> a long drought.</p></div>
+  </div>
+
+  <div class="div"><div class="div-label">THE SUBJECT</div></div>
+
+  <div class="rule">
+    <div class="rule-label">DEFINITION</div>
+    <div class="rule-title">Simple vs. Complete Subject</div>
+    <div class="rule-body">The <strong>simple subject</strong> is the main word that tells whom or what the sentence is about. The <strong>complete subject</strong> is the simple subject plus all words that modify it.</div>
+    <div class="ex"><div class="ex-lbl">EXAMPLE 1</div>
+      <p><span class="hs">A dog with this pedigree</span> is usually nervous.</p>
+      <ul style="margin-top:.4rem;"><li>Complete subject: <em>A dog with this pedigree</em></li><li>Simple subject: <em>dog</em></li></ul>
+    </div>
+    <div class="ex"><div class="ex-lbl">EXAMPLE 2</div>
+      <p><span class="hs">Both of these cockatiels</span> are for sale.</p>
+      <ul style="margin-top:.4rem;"><li>Complete subject: <em>Both of these cockatiels</em></li><li>Simple subject: <em>Both</em></li></ul>
+    </div>
+    <div class="headsup"><strong>HEADS UP:</strong> The subject can never be found in a prepositional phrase. Cross out prep phrases first.</div>
+  </div>
+
+  <div class="div"><div class="div-label">THE PREDICATE</div></div>
+
+  <div class="rule alt">
+    <div class="rule-label">DEFINITION</div>
+    <div class="rule-title">Simple vs. Complete Predicate</div>
+    <div class="rule-body">The <strong>simple predicate</strong> (verb) is the main word that tells something about the subject. The <strong>complete predicate</strong> is the verb plus all words that modify or complete its meaning.</div>
+    <div class="ex"><div class="ex-lbl">EXAMPLE 1</div>
+      <p>Spiders <span class="hv">snare their prey in intricate webs.</span></p>
+      <ul style="margin-top:.4rem;"><li>Complete predicate: <em>snare their prey in intricate webs</em></li><li>Simple predicate (verb): <em>snare</em></li></ul>
+    </div>
+    <div class="ex"><div class="ex-lbl">EXAMPLE 2</div>
+      <p><span class="hv">Have been found</span> — my keys?</p>
+      <ul style="margin-top:.4rem;"><li>Complete predicate: <em>Have been found</em></li><li>Verb phrase: <em>Have been found</em></li></ul>
+    </div>
+    <div class="headsup"><strong>HEADS UP:</strong> The predicate can never be found in a prepositional phrase either.</div>
+  </div>
+
+  <div class="remember"><div class="remember-icon">📌</div><div class="remember-text">Always cross out <strong>prepositional phrases</strong> first. They will never contain the subject or the verb.</div></div>
+
+  <div class="div"><div class="div-label">PRACTICE QUIZ</div></div>
+  <div class="qblock"><h3>Subjects &amp; Predicates</h3><p class="qsub">Click the correct answer. Feedback appears immediately.</p>
+    <div id="quiz-s1"></div>
+    <div class="score-bar"><div class="score-display" id="score-s1">0 / 10</div><div class="score-kern" id="kern-s1">🫙🫙🫙🫙🫙🫙🫙🫙🫙🫙</div><button class="reset-btn" onclick="resetQ('s1')">↺ Reset</button></div>
+  </div>
+  <div class="pnav"><button class="pnb" onclick="sv('home')">← Home</button><button class="pnb nx" onclick="sv('s2')">Finding the Subject →</button></div>
+</div></div>
+
+<!-- S2: FINDING THE SUBJECT -->
+<div class="view" id="view-s2"><div class="pw">
+  <div class="sec-banner"><div class="sec-num">02</div><div><div class="sec-label">PARTS OF A SENTENCE</div><div class="sec-name">Finding the Subject</div></div></div>
+
+  <div class="rule">
+    <div class="rule-label">THE METHOD</div>
+    <div class="rule-title">Start with the verb</div>
+    <div class="rule-body">To find the subject, find the <strong>verb first</strong>. Then ask <strong>who?</strong> or <strong>what?</strong> before the verb.</div>
+    <div class="ex"><div class="ex-lbl">EXAMPLES</div>
+      <ul>
+        <li><span class="hs">My cousin</span> from Finland <span class="hv">will arrive</span> this afternoon.</li>
+        <li>On the other side of the brook <span class="hv">stands</span> <span class="hs">a cabin</span>.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="div"><div class="div-label">4 RULES FOR TRICKY SUBJECTS</div></div>
+
+  <div class="step"><div class="step-n">1</div><div>
+    <div class="step-label">PREPOSITIONAL PHRASES</div>
+    <div class="step-title">The subject is never in a prepositional phrase</div>
+    <div class="step-body">Cross out all prep phrases first. The subject will be in what remains.</div>
+    <div class="ex" style="margin-top:.6rem;"><div class="ex-lbl">EXAMPLES</div>
+      <ul>
+        <li><span class="hs">One</span> <s style="color:var(--muted);">of my cousins</s> has visited Ghana.</li>
+        <li>On the top <s style="color:var(--muted);">of the building</s> is an up-to-date <span class="hs">observatory</span>.</li>
+      </ul>
+    </div>
+  </div></div>
+
+  <div class="step"><div class="step-n">2</div><div>
+    <div class="step-label">HERE / THERE</div>
+    <div class="step-title">If <em>here</em> or <em>there</em> starts a sentence, the subject follows the verb</div>
+    <div class="step-body"><em>Here</em> and <em>there</em> are NEVER the subject.</div>
+    <div class="ex" style="margin-top:.6rem;"><div class="ex-lbl">EXAMPLES</div>
+      <ul>
+        <li>There are your new <span class="hs">gloves</span>.</li>
+        <li>Here is my <span class="hs">nephew</span>.</li>
+      </ul>
+    </div>
+  </div></div>
+
+  <div class="step"><div class="step-n">3</div><div>
+    <div class="step-label">QUESTIONS</div>
+    <div class="step-title">In a question, the subject usually follows the verb — turn it into a statement</div>
+    <div class="step-body">Rewrite the question as a statement to find the subject easily.</div>
+    <div class="ex" style="margin-top:.6rem;"><div class="ex-lbl">EXAMPLES</div>
+      <ul>
+        <li>Where is your <span class="hs">parakeet</span>? → Your parakeet is there.</li>
+        <li>Did <span class="hs">you</span> make the team? → You did make the team.</li>
+        <li>Were your <span class="hs">friends</span> early? → Your friends were early.</li>
+        <li>Where did the <span class="hs">horses</span> cross the river? → The horses crossed the river.</li>
+      </ul>
+    </div>
+  </div></div>
+
+  <div class="step"><div class="step-n">4</div><div>
+    <div class="step-label">COMMANDS / REQUESTS</div>
+    <div class="step-title">In a command, the subject is the understood <em>[you]</em></div>
+    <div class="step-body">The subject is not stated, but it is always understood to be <em>[you]</em>.</div>
+    <div class="ex" style="margin-top:.6rem;"><div class="ex-lbl">EXAMPLES</div>
+      <ul>
+        <li>[<span class="hs">You</span>] Please rake the yard.</li>
+        <li>[<span class="hs">You</span>] Pick up the fallen branches.</li>
+        <li>Jason, [<span class="hs">you</span>] wash the dishes.</li>
+      </ul>
+    </div>
+  </div></div>
+
+  <div class="div"><div class="div-label">PRACTICE QUIZ</div></div>
+  <div class="qblock"><h3>Finding the Subject</h3><p class="qsub">Click the correct answer.</p>
+    <div id="quiz-s2"></div>
+    <div class="score-bar"><div class="score-display" id="score-s2">0 / 10</div><div class="score-kern" id="kern-s2">🫙🫙🫙🫙🫙🫙🫙🫙🫙🫙</div><button class="reset-btn" onclick="resetQ('s2')">↺ Reset</button></div>
+  </div>
+  <div class="pnav"><button class="pnb" onclick="sv('s1')">← Subjects &amp; Predicates</button><button class="pnb nx" onclick="sv('s3')">Compound S &amp; V →</button></div>
+</div></div>
+
+<!-- S3: COMPOUND -->
+<div class="view" id="view-s3"><div class="pw">
+  <div class="sec-banner"><div class="sec-num">03</div><div><div class="sec-label">PARTS OF A SENTENCE</div><div class="sec-name">Compound Subjects &amp; Verbs</div></div></div>
+
+  <div class="rule">
+    <div class="rule-label">DEFINITION</div>
+    <div class="rule-title">Compound Subject</div>
+    <div class="rule-body">A <strong>compound subject</strong> is two or more subjects joined by a conjunction that share the same verb.</div>
+    <div class="ex"><div class="ex-lbl">EXAMPLES</div>
+      <ul>
+        <li><span class="hs">Mr. Olivero and his daughter</span> planted the garden.</li>
+        <li><span class="hs">Either Mr. Olivero or his daughter</span> planted the garden.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="rule alt">
+    <div class="rule-label">DEFINITION</div>
+    <div class="rule-title">Compound Verb</div>
+    <div class="rule-body">A <strong>compound verb</strong> is two or more verbs joined by a conjunction that share the same subject.</div>
+    <div class="ex"><div class="ex-lbl">EXAMPLES</div>
+      <ul>
+        <li>At the street festival, we <span class="hv">danced</span> the rumba and <span class="hv">sampled</span> the meat pies.</li>
+        <li>I <span class="hv">have written</span> the letter and <span class="hv">addressed</span> the envelope, but <span class="hv">have not gone</span> to the post office.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="remember"><div class="remember-icon">📌</div><div class="remember-text">Both the <strong>subject and the verb</strong> may be compound at the same time.<br><br><em style="opacity:.8;">Yesterday, Jamal and I built a box kite and painted it bright yellow and green.</em><br><span style="font-size:.82em;opacity:.6;">Compound subject: Jamal and I &nbsp;·&nbsp; Compound verb: built and painted</span></div></div>
+
+  <div class="div"><div class="div-label">PRACTICE QUIZ</div></div>
+  <div class="qblock"><h3>Compound Subjects &amp; Verbs</h3><p class="qsub">Click the correct answer.</p>
+    <div id="quiz-s3"></div>
+    <div class="score-bar"><div class="score-display" id="score-s3">0 / 10</div><div class="score-kern" id="kern-s3">🫙🫙🫙🫙🫙🫙🫙🫙🫙🫙</div><button class="reset-btn" onclick="resetQ('s3')">↺ Reset</button></div>
+  </div>
+  <div class="pnav"><button class="pnb" onclick="sv('s2')">← Finding the Subject</button><button class="pnb nx" onclick="sv('s4')">Subject Complements →</button></div>
+</div></div>
+
+<!-- S4: SUBJECT COMPLEMENTS -->
+<div class="view" id="view-s4"><div class="pw">
+  <div class="sec-banner"><div class="sec-num">04</div><div><div class="sec-label">PARTS OF A SENTENCE</div><div class="sec-name">Subject Complements</div></div></div>
+
+  <div class="rule">
+    <div class="rule-label">DEFINITION</div>
+    <div class="rule-title">What is a subject complement?</div>
+    <div class="rule-body">A <strong>subject complement</strong> completes the meaning of a linking verb and identifies or modifies the subject. There are two kinds: a <strong>predicate nominative</strong> and a <strong>predicate adjective</strong>.</div>
+    <div class="remember" style="margin-top:.8rem;"><div class="remember-icon">🔗</div><div class="remember-text">Subject complements are <strong>only found with linking verbs</strong> (is, are, was, were, seem, become, look, feel, appear, taste, smell, remain, grow, etc.)</div></div>
+  </div>
+
+  <div class="div"><div class="div-label">PREDICATE NOMINATIVE</div></div>
+
+  <div class="rule">
+    <div class="rule-label">TYPE 1 — PN</div>
+    <div class="rule-title">Predicate Nominative</div>
+    <div class="rule-body">A predicate nominative is in the predicate and <strong>identifies the subject or refers to it</strong>. It may be a noun or a pronoun.</div>
+    <div class="ex"><div class="ex-lbl">EXAMPLES</div>
+      <ul>
+        <li>Some caterpillars become <span class="hsc">butterflies</span>. <span class="br">[butterflies identifies caterpillars]</span></li>
+        <li>The winner should have been <span class="hsc">they</span>. <span class="br">[they refers to winners]</span></li>
+        <li>She is the next <span class="hsc">speaker</span>. <span class="br">[speaker refers to She]</span></li>
+      </ul>
+    </div>
+    <div class="headsup"><strong>NOTE:</strong> A PN may be <strong>compound</strong>: Our cats' names are <em>Wimpy and Henry</em>.<br>A PN may also <strong>precede the subject and verb</strong>: What a fine <em>speaker</em> you are!</div>
+  </div>
+
+  <div class="div"><div class="div-label">PREDICATE ADJECTIVE</div></div>
+
+  <div class="rule alt">
+    <div class="rule-label">TYPE 2 — PA</div>
+    <div class="rule-title">Predicate Adjective</div>
+    <div class="rule-body">A predicate adjective is an adjective in the predicate that <strong>modifies the subject</strong>.</div>
+    <div class="ex"><div class="ex-lbl">EXAMPLES</div>
+      <ul>
+        <li>You look <span class="hsc">happy</span>. <span class="br">[happy modifies You]</span></li>
+        <li>When she left, Norma appeared <span class="hsc">calm</span>. <span class="br">[calm modifies Norma]</span></li>
+      </ul>
+    </div>
+    <div class="headsup"><strong>NOTE:</strong> A PA may be <strong>compound</strong>: The yogurt tasted <em>sweet and creamy</em>.<br>A PA may also <strong>precede the subject and verb</strong>: How <em>silly</em> that commercial is!</div>
+  </div>
+
+  <div class="ctable-wrap"><table class="ctable">
+    <tr><th>Type</th><th>What it does</th><th>Part of speech</th><th>Example</th></tr>
+    <tr><td><strong>Predicate Nominative (PN)</strong></td><td>Identifies or renames the subject</td><td>Noun or Pronoun</td><td><em>Louis is a mathematician.</em></td></tr>
+    <tr><td><strong>Predicate Adjective (PA)</strong></td><td>Describes or modifies the subject</td><td>Adjective</td><td><em>Carlos has grown taller.</em></td></tr>
+  </table></div>
+
+  <div class="div"><div class="div-label">PRACTICE QUIZ</div></div>
+  <div class="qblock"><h3>Subject Complements</h3><p class="qsub">Click the correct answer.</p>
+    <div id="quiz-s4"></div>
+    <div class="score-bar"><div class="score-display" id="score-s4">0 / 10</div><div class="score-kern" id="kern-s4">🫙🫙🫙🫙🫙🫙🫙🫙🫙🫙</div><button class="reset-btn" onclick="resetQ('s4')">↺ Reset</button></div>
+  </div>
+  <div class="pnav"><button class="pnb" onclick="sv('s3')">← Compound S &amp; V</button><button class="pnb nx" onclick="sv('s5')">Direct Objects →</button></div>
+</div></div>
+
+<!-- S5: DIRECT OBJECTS -->
+<div class="view" id="view-s5"><div class="pw">
+  <div class="sec-banner"><div class="sec-num">05</div><div><div class="sec-label">PARTS OF A SENTENCE</div><div class="sec-name">Direct Objects</div></div></div>
+
+  <div class="rule">
+    <div class="rule-label">DEFINITION</div>
+    <div class="rule-title">What is a direct object?</div>
+    <div class="rule-body">A <strong>direct object</strong> is a noun, pronoun, or word group that tells <strong>who</strong> or <strong>what</strong> receives the action of an action verb or shows the result of the action.<br><br>Ask <strong>whom?</strong> or <strong>what?</strong> after the verb to find it.</div>
+    <div class="ex"><div class="ex-lbl">EXAMPLES</div>
+      <ul>
+        <li>I took my little <span class="hdo">sister</span> to the movie. <span class="br">[took whom? sister]</span></li>
+        <li>She had already seen <span class="hdo">it</span> four times. <span class="br">[seen what? it]</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="rule alt">
+    <div class="rule-label">KEY NOTES</div>
+    <div class="rule-title">Things to remember about direct objects</div>
+    <div class="rule-body">A direct object may be <strong>compound</strong>:</div>
+    <div class="ex"><div class="ex-lbl">COMPOUND DO</div><p>The parrot said <span class="hdo">"Good morning"</span> and <span class="hdo">"Cat free to good home."</span></p></div>
+    <div class="rule-body" style="margin-top:.6rem;">A direct object may <strong>precede the subject and verb</strong>:</div>
+    <div class="ex"><div class="ex-lbl">DO BEFORE SUBJECT</div><p>What remarkable <span class="hdo">tricks</span> the illusionist performed! <span class="br">[performed what? tricks]</span></p></div>
+    <div class="rule-body" style="margin-top:.6rem;">Direct objects are <strong>never found in prepositional phrases</strong>:</div>
+    <div class="ex"><div class="ex-lbl">COMPARISON</div>
+      <ul>
+        <li>Tom was driving <s style="color:var(--muted);">in his car</s>. <span class="br">[car is in a prep phrase — NOT a DO]</span></li>
+        <li>Tom was driving his <span class="hdo">car</span>. <span class="br">[driving what? car — this IS a DO]</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="remember"><div class="remember-icon">📌</div><div class="remember-text">Direct objects are <strong>only found with action verbs</strong>. If the verb is a linking verb, there is no direct object — look for a subject complement instead.</div></div>
+
+  <div class="div"><div class="div-label">PRACTICE QUIZ</div></div>
+  <div class="qblock"><h3>Direct Objects</h3><p class="qsub">Click the correct answer.</p>
+    <div id="quiz-s5"></div>
+    <div class="score-bar"><div class="score-display" id="score-s5">0 / 10</div><div class="score-kern" id="kern-s5">🫙🫙🫙🫙🫙🫙🫙🫙🫙🫙</div><button class="reset-btn" onclick="resetQ('s5')">↺ Reset</button></div>
+  </div>
+  <div class="pnav"><button class="pnb" onclick="sv('s4')">← Subject Complements</button><button class="pnb nx" onclick="sv('s6')">Indirect Objects →</button></div>
+</div></div>
+
+<!-- S6: INDIRECT OBJECTS -->
+<div class="view" id="view-s6"><div class="pw">
+  <div class="sec-banner"><div class="sec-num">06</div><div><div class="sec-label">PARTS OF A SENTENCE</div><div class="sec-name">Indirect Objects</div></div></div>
+
+  <div class="rule">
+    <div class="rule-label">DEFINITION</div>
+    <div class="rule-title">What is an indirect object?</div>
+    <div class="rule-body">An <strong>indirect object</strong> is a noun, pronoun, or word group that tells <strong>to whom</strong>, <strong>to what</strong>, <strong>for whom</strong>, or <strong>for what</strong> the action of the verb is done.<br><br>It is located <strong>between the action verb and the direct object</strong>.</div>
+    <div class="ex"><div class="ex-lbl">EXAMPLES</div>
+      <ul>
+        <li>Meli read <span class="hio">us</span> her report. <span class="br">[read to whom? us]</span></li>
+        <li>They fed <span class="hio">the horses</span> some oats. <span class="br">[fed what some oats? the horses]</span></li>
+        <li>Juan left <span class="hio">you</span> this message. <span class="br">[left the message for whom? you]</span></li>
+        <li>Carly knitted <span class="hio">her pet poodle</span> a blanket. <span class="br">[knitted the blanket for what? her poodle]</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="rule alt">
+    <div class="rule-label">KEY NOTES</div>
+    <div class="rule-title">Things to remember about indirect objects</div>
+    <div class="rule-body">An indirect object may be <strong>compound</strong>:</div>
+    <div class="ex"><div class="ex-lbl">COMPOUND IO</div><p>The ski trip had given <span class="hio">Lucia and me</span> a wonderful vacation. <span class="br">[given to whom? Lucia and me]</span></p></div>
+    <div class="rule-body" style="margin-top:.6rem;">An indirect object <strong>cannot be part of a prepositional phrase</strong>:</div>
+    <div class="ex"><div class="ex-lbl">COMPARISON</div>
+      <ul>
+        <li>Jeff wrote a note <s style="color:var(--muted);">to me</s>. <span class="br">[me is in "to me" — NOT an IO]</span></li>
+        <li>Jeff wrote <span class="hio">me</span> a note. <span class="br">[wrote a note to whom? me — this IS an IO]</span></li>
+      </ul>
+    </div>
+    <div class="headsup"><strong>CRITICAL:</strong> You cannot have an indirect object without a direct object. If there is only one object, it is always a <strong>direct object</strong>.</div>
+  </div>
+
+  <div class="remember"><div class="remember-icon">📌</div><div class="remember-text">Indirect objects are <strong>only found with action verbs</strong>. Order is always: verb → IO → DO.</div></div>
+
+  <div class="div"><div class="div-label">PRACTICE QUIZ</div></div>
+  <div class="qblock"><h3>Indirect Objects</h3><p class="qsub">Click the correct answer.</p>
+    <div id="quiz-s6"></div>
+    <div class="score-bar"><div class="score-display" id="score-s6">0 / 10</div><div class="score-kern" id="kern-s6">🫙🫙🫙🫙🫙🫙🫙🫙🫙🫙</div><button class="reset-btn" onclick="resetQ('s6')">↺ Reset</button></div>
+  </div>
+  <div class="pnav"><button class="pnb" onclick="sv('s5')">← Direct Objects</button><button class="pnb nx" onclick="sv('s7')">Classifying Sentences →</button></div>
+</div></div>
+
+<!-- S7: SENTENCE PURPOSE -->
+<div class="view" id="view-s7"><div class="pw">
+  <div class="sec-banner"><div class="sec-num">07</div><div><div class="sec-label">PARTS OF A SENTENCE</div><div class="sec-name">Classifying Sentences by Purpose</div></div></div>
+
+  <div class="rule">
+    <div class="rule-label">OVERVIEW</div>
+    <div class="rule-title">Four types of sentences</div>
+    <div class="rule-body">Depending on its purpose, a sentence may be classified as <strong>declarative</strong>, <strong>imperative</strong>, <strong>interrogative</strong>, or <strong>exclamatory</strong>.</div>
+  </div>
+
+  <div class="stypes">
+    <div class="scard">
+      <div class="scard-head"><div class="sdot" style="background:#2d6a4f;"></div><div class="sname">DECLARATIVE</div></div>
+      <div class="scard-rule">Makes a statement. Ends with a period.</div>
+      <div class="scard-ex">Toni Morrison won the Nobel Prize for literature in 1993.<br><br>Although we were tired after working all day, we still wanted to go dancing.</div>
+      <div class="scard-mark">Ends with: .</div>
+    </div>
+    <div class="scard">
+      <div class="scard-head"><div class="sdot" style="background:#e63946;"></div><div class="sname">IMPERATIVE</div></div>
+      <div class="scard-rule">Gives a command or makes a request. Usually ends with a period. A strong command ends with an exclamation point.</div>
+      <div class="scard-ex">Be careful.<br>Please open the window.<br>Wait!</div>
+      <div class="scard-mark">Ends with: . or !</div>
+    </div>
+    <div class="scard">
+      <div class="scard-head"><div class="sdot" style="background:#1d3557;"></div><div class="sname">INTERROGATIVE</div></div>
+      <div class="scard-rule">Asks a question. Ends with a question mark.</div>
+      <div class="scard-ex">Can you speak Spanish?<br><br>Did you say that you were taking French?</div>
+      <div class="scard-mark">Ends with: ?</div>
+    </div>
+    <div class="scard">
+      <div class="scard-head"><div class="sdot" style="background:#f4a261;"></div><div class="sname">EXCLAMATORY</div></div>
+      <div class="scard-rule">Shows excitement or expresses strong feeling. Ends with an exclamation point.</div>
+      <div class="scard-ex">What a beautiful day this is!<br><br>How I enjoy autumn!</div>
+      <div class="scard-mark">Ends with: !</div>
+    </div>
+  </div>
+
+  <div class="ctable-wrap"><table class="ctable">
+    <tr><th>Type</th><th>Purpose</th><th>End mark</th><th>Understood subject?</th></tr>
+    <tr><td>Declarative</td><td>Makes a statement</td><td>.</td><td>No</td></tr>
+    <tr><td>Imperative</td><td>Command / request</td><td>. or !</td><td>Yes — [you]</td></tr>
+    <tr><td>Interrogative</td><td>Asks a question</td><td>?</td><td>No</td></tr>
+    <tr><td>Exclamatory</td><td>Expresses strong feeling</td><td>!</td><td>No</td></tr>
+  </table></div>
+
+  <div class="div"><div class="div-label">PRACTICE QUIZ</div></div>
+  <div class="qblock"><h3>Classifying Sentences by Purpose</h3><p class="qsub">Click the correct answer.</p>
+    <div id="quiz-s7"></div>
+    <div class="score-bar"><div class="score-display" id="score-s7">0 / 10</div><div class="score-kern" id="kern-s7">🫙🫙🫙🫙🫙🫙🫙🫙🫙🫙</div><button class="reset-btn" onclick="resetQ('s7')">↺ Reset</button></div>
+  </div>
+  <div class="pnav"><button class="pnb" onclick="sv('s6')">← Indirect Objects</button><button class="pnb nx" onclick="sv('home')">Home</button></div>
+</div></div>
+
+<script>
+const tabMap={home:0,s1:1,s2:2,s3:3,s4:4,s5:5,s6:6,s7:7};
+const built={};
+function sv(name){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('view-'+name).classList.add('active');
+  document.querySelectorAll('.tab')[tabMap[name]].classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(!built[name]&&allQs[name]){buildQ(name);built[name]=true;}
+}
+
+const allQs={
+  s1:[
+    {q:'The __________ tells whom or what the sentence is about.',opts:['predicate','subject','verb','direct object'],ans:'subject',exp:'The subject tells whom or what the sentence is about. The predicate tells something about the subject.'},
+    {q:'In "A dog with this pedigree is usually nervous" — what is the simple subject?',opts:['pedigree','nervous','A dog with this pedigree','dog'],ans:'dog',exp:'The simple subject is the main word only. "dog" is the single main noun — "with this pedigree" is a prepositional phrase.'},
+    {q:'In "Both of these cockatiels are for sale" — what is the complete subject?',opts:['cockatiels','Both','Both of these cockatiels','are for sale'],ans:'Both of these cockatiels',exp:'The complete subject includes the simple subject plus all modifiers: "Both of these cockatiels."'},
+    {q:'In "Spiders snare their prey in intricate webs" — what is the simple predicate?',opts:['snare their prey','in intricate webs','Spiders','snare'],ans:'snare',exp:'The simple predicate (verb) is the main word only: "snare." The complete predicate is "snare their prey in intricate webs."'},
+    {q:'Can the subject be found inside a prepositional phrase?',opts:['Yes, always','Sometimes','Never','Only in questions'],ans:'Never',exp:'The subject is NEVER inside a prepositional phrase. Always cross out prep phrases first before identifying the subject.'},
+    {q:'The complete predicate consists of the verb plus ________.',opts:['only the direct object','only the subject','all words that modify the verb and complete its meaning','prepositional phrases only'],ans:'all words that modify the verb and complete its meaning',exp:'Complete predicate = verb + all its modifiers and completers.'},
+    {q:'In "Have my keys been found?" — what is the simple predicate?',opts:['Have my keys','been found','keys','Have been found'],ans:'Have been found',exp:'"Have been found" is the full verb phrase — helping verbs are included in the simple predicate.'},
+    {q:'In "Rosa has been looking for you all morning" — what is the complete predicate?',opts:['"Rosa" — the subject','has been looking for you all morning','has been looking','for you all morning'],ans:'has been looking for you all morning',exp:'The complete predicate includes the verb phrase and everything that modifies or completes it.'},
+    {q:'Which part of the sentence does the predicate describe?',opts:['The direct object','Another predicate','The subject','The prepositional phrase'],ans:'The subject',exp:'The predicate tells something about the subject — that is its entire job.'},
+    {q:'In "The giant panda of China is considered an endangered species" — what is the simple subject?',opts:['China','panda','giant panda','species'],ans:'panda',exp:'"of China" is a prepositional phrase — cross it out. What is considered? The giant panda. Simple subject: panda.'},
+  ],
+  s2:[
+    {q:'To find the subject, what should you do first?',opts:['Find the direct object','Find the verb, then ask who? or what?','Look for the longest word group','Find a prepositional phrase'],ans:'Find the verb, then ask who? or what?',exp:'Always find the verb first. Then ask who? or what? before the verb to locate the subject.'},
+    {q:'In "Behind all of the feeble excuses was the truth" — what is the subject?',opts:['excuses','Behind all of the feeble excuses','truth','all'],ans:'truth',exp:'"Behind all of the feeble excuses" is a prepositional phrase. Cross it out. What was? The truth.'},
+    {q:'In "There will be a study-group meeting tomorrow" — what is the subject?',opts:['There','tomorrow','meeting','study-group'],ans:'meeting',exp:'"There" is never a subject. The subject follows the verb. What will be? A meeting.'},
+    {q:'In "Where do robins go in the winter?" — what is the subject?',opts:['robins','winter','Where','go'],ans:'robins',exp:'Turn it into a statement: "Robins do go somewhere in the winter." The subject is "robins."'},
+    {q:'"Bring me a glass of water." — What is the subject?',opts:['water','glass','me','[you]'],ans:'[you]',exp:'In a command, the subject is the understood [you]. It is not stated out loud.'},
+    {q:'In "One of my cousins has visited Ghana" — what is the simple subject?',opts:['cousins','my','One','Ghana'],ans:'One',exp:'"of my cousins" is a prepositional phrase. Cross it out. Who has visited? One. The subject is "One."'},
+    {q:'"Here is my nephew." — What is the subject?',opts:['Here','nephew','my','is'],ans:'nephew',exp:'"Here" is never a subject. In sentences starting with "here," the subject follows the verb. What is here? My nephew.'},
+    {q:'To find the subject in a question, what should you do?',opts:['Find the longest noun','Turn the question into a statement','Find a prepositional phrase','Look for the word after "the"'],ans:'Turn the question into a statement',exp:'Rewrite the question as a statement: "Did you make the team?" becomes "You did make the team." Now you can find the subject.'},
+    {q:'"On the branch sat a red cardinal." — What is the subject?',opts:['branch','sat','On the branch','cardinal'],ans:'cardinal',exp:'"On the branch" is a prepositional phrase — cross it out. What sat? A red cardinal. Subject: cardinal.'},
+    {q:'"Don\'t forget to bring your backpack." — What is the subject?',opts:['backpack','forget','[you]','Don\'t'],ans:'[you]',exp:'This is a command. The subject is the understood [you], even though it is not stated.'},
+  ],
+  s3:[
+    {q:'A compound subject has two or more subjects that share ________.',opts:['the same object','the same verb','different verbs','the same modifier'],ans:'the same verb',exp:'Compound subject = two or more subjects joined by a conjunction sharing the SAME verb.'},
+    {q:'Which sentence has a compound subject?',opts:['She danced and sang at the festival.','Mr. Olivero and his daughter planted the garden.','They fed the horses some oats.','Juan left you this message.'],ans:'Mr. Olivero and his daughter planted the garden.',exp:'"Mr. Olivero and his daughter" are two subjects joined by "and" — compound subject.'},
+    {q:'A compound verb has two or more verbs that share ________.',opts:['different subjects','the same subject','the same object','the same modifier'],ans:'the same subject',exp:'Compound verb = two or more verbs joined by a conjunction sharing the SAME subject.'},
+    {q:'Which sentence has a compound verb?',opts:['Jamal and I painted the kite.','We danced the rumba and sampled the meat pies.','Under the bridge sat the runaway boy.','The editor and her assistants met.'],ans:'We danced the rumba and sampled the meat pies.',exp:'"danced" and "sampled" are two verbs joined by "and" sharing the same subject "we."'},
+    {q:'In "Jamal and I built a box kite and painted it bright yellow" — this sentence has ________.',opts:['only a compound subject','only a compound verb','both a compound subject and compound verb','neither'],ans:'both a compound subject and compound verb',exp:'"Jamal and I" = compound subject. "built and painted" = compound verb. Both at the same time.'},
+    {q:'"The front and back tires are low and need air." — Which parts are compound?',opts:['Only subject: front and back tires','Only verb: are low and need','Both: subject and verb compound','Neither'],ans:'Both: subject and verb compound',exp:'Compound subject: "front and back tires." Compound verb: "are low" and "need air."'},
+    {q:'In "Either Mr. Olivero or his daughter planted" — what conjunction joins the compound subject?',opts:['and','but','or','nor'],ans:'or',exp:'"Either...or" is a correlative conjunction that joins two subjects to form a compound subject.'},
+    {q:'"Miguel neither sings nor plays an instrument." — What is compound?',opts:['The subject','The verb','Both subject and verb','Neither'],ans:'The verb',exp:'"neither sings nor plays" = compound verb. The subject is just "Miguel."'},
+    {q:'"Humor and wisdom are often used in folk sayings." — What is compound?',opts:['Compound verb only','Compound subject only','Both compound subject and verb','No compound elements'],ans:'Compound subject only',exp:'"Humor and wisdom" = compound subject. There is only one verb: "are used."'},
+    {q:'In "Do any bears or wildcats live and breathe in these woods?" — what is compound?',opts:['Only the subject: bears or wildcats','Only the verb: live and breathe','Both subject and verb are compound','Neither'],ans:'Both subject and verb are compound',exp:'Compound subject: "bears or wildcats." Compound verb: "live and breathe."'},
+  ],
+  s4:[
+    {q:'Subject complements are only found with which type of verb?',opts:['Action verbs','Linking verbs','Helping verbs','Transitive verbs'],ans:'Linking verbs',exp:'Subject complements (PN and PA) are ONLY found with linking verbs — never with action verbs.'},
+    {q:'A predicate nominative identifies or ________ the subject.',opts:['modifies','replaces','refers to','contradicts'],ans:'refers to',exp:'A predicate nominative identifies or refers to the subject. It is a noun or pronoun.'},
+    {q:'In "Some caterpillars become butterflies" — "butterflies" is a ________.',opts:['predicate adjective','direct object','predicate nominative','indirect object'],ans:'predicate nominative',exp:'"butterflies" is a noun after the linking verb "become" that identifies/renames "caterpillars" — predicate nominative.'},
+    {q:'In "You look happy" — "happy" is a ________.',opts:['predicate nominative','direct object','predicate adjective','indirect object'],ans:'predicate adjective',exp:'"happy" is an adjective after the linking verb "look" that modifies the subject "you" — predicate adjective.'},
+    {q:'A predicate adjective ________ the subject.',opts:['identifies','renames','modifies','replaces'],ans:'modifies',exp:'A predicate adjective is an adjective that describes or modifies the subject. A PN identifies or renames it.'},
+    {q:'In "The winner should have been they" — "they" is a ________.',opts:['predicate adjective','direct object','predicate nominative','subject'],ans:'predicate nominative',exp:'"they" is a pronoun after the linking verb that refers back to the subject "winner" — predicate nominative.'},
+    {q:'In "He said the yogurt tasted sweet and creamy" — what type is "sweet and creamy"?',opts:['Compound predicate nominative','Direct object','Compound predicate adjective','Indirect object'],ans:'Compound predicate adjective',exp:'"sweet and creamy" are two adjectives after the linking verb "tasted" that modify the subject "yogurt."'},
+    {q:'Which sentence contains a predicate nominative?',opts:['She looks tired.','Louis is a mathematician and a teacher.','The roses smell sweet.','Carlos has grown taller.'],ans:'Louis is a mathematician and a teacher.',exp:'"a mathematician and a teacher" are nouns after the linking verb "is" that identify the subject "Louis" — compound PN.'},
+    {q:'"How silly that commercial is!" — "silly" is a ________.',opts:['predicate nominative','subject','predicate adjective','verb'],ans:'predicate adjective',exp:'"silly" is an adjective modifying the subject "commercial." Even though it precedes the subject and verb, it is still a PA.'},
+    {q:'Which verb below is a linking verb that could introduce a subject complement?',opts:['ran','threw','became','wrote'],ans:'became',exp:'"became" is a linking verb — it can introduce a subject complement. The others are all action verbs.'},
+  ],
+  s5:[
+    {q:'A direct object tells ________ or ________ receives the action of an action verb.',opts:['when / where','who / what','how / why','which / whose'],ans:'who / what',exp:'Ask "whom?" or "what?" after the verb to find the direct object.'},
+    {q:'In "I took my little sister to the movie" — what is the direct object?',opts:['movie','sister','I','to the movie'],ans:'sister',exp:'"took whom?" = "my sister." "to the movie" is a prepositional phrase — NOT the direct object.'},
+    {q:'Can a direct object be inside a prepositional phrase?',opts:['Yes, always','Sometimes','Never','Only in questions'],ans:'Never',exp:'Direct objects are NEVER found in prepositional phrases.'},
+    {q:'Direct objects are only found with ________ verbs.',opts:['linking','helping','action','intransitive'],ans:'action',exp:'Direct objects only follow action verbs, never linking verbs.'},
+    {q:'In "She had already seen it four times" — what is the direct object?',opts:['four times','already','it','She'],ans:'it',exp:'"seen what?" = "it." The pronoun "it" is the direct object.'},
+    {q:'Which sentence has a direct object?',opts:['Tom was driving in his car.','Tom was driving his car.','She walked to the store.','The bird flew south.'],ans:'Tom was driving his car.',exp:'"driving what?" = "his car." In "Tom was driving in his car," car is inside the prep phrase "in his car" — not a DO.'},
+    {q:'"Have you ever seen a blue jay?" — what is the direct object?',opts:['you','Have seen','jay','ever'],ans:'jay',exp:'"seen what?" = "a blue jay." Turn into statement: "You have seen a blue jay." Jay is the DO.'},
+    {q:'"By the end of the day, I had won three races." — what is the direct object?',opts:['day','end','I','races'],ans:'races',exp:'"won what?" = "three races." "By the end of the day" is a prepositional phrase — cross it out.'},
+    {q:'In "Sharon ate part of a watermelon and a half of a cantaloupe" — the direct objects are ________.',opts:['Sharon and ate','part and half','watermelon and cantaloupe','of a watermelon and of a cantaloupe'],ans:'part and half',exp:'"ate what?" = "part" and "a half" — compound DO. "of a watermelon" and "of a cantaloupe" are prepositional phrases.'},
+    {q:'"What remarkable tricks the illusionist performed!" — where is the direct object?',opts:['It has no direct object','The DO "tricks" precedes the subject and verb','Tricks is a predicate nominative','Illusionist is the direct object'],ans:'The DO "tricks" precedes the subject and verb',exp:'"performed what? tricks." Even though "tricks" comes before the subject "illusionist," it is still the direct object.'},
+  ],
+  s6:[
+    {q:'An indirect object tells ________ the action of the verb is done.',opts:['when / where','who / what receives it','to whom / for whom','how / why'],ans:'to whom / for whom',exp:'The IO answers: to whom, to what, for whom, or for what was the action done?'},
+    {q:'Where is the indirect object located in a sentence?',opts:['Before the verb','After the direct object','Between the action verb and the direct object','In a prepositional phrase'],ans:'Between the action verb and the direct object',exp:'The IO sits between the action verb and the direct object: verb → IO → DO.'},
+    {q:'In "Meli read us her report" — what is the indirect object?',opts:['report','Meli','her','us'],ans:'us',exp:'"read the report to whom?" = "us." Us is the IO between "read" (verb) and "report" (DO).'},
+    {q:'Can an indirect object be in a prepositional phrase?',opts:['Yes, always','Sometimes','Never','Only with linking verbs'],ans:'Never',exp:'"Jeff wrote a note to me" — "me" is in the prep phrase "to me" — NOT an IO. "Jeff wrote me a note" — "me" IS an IO.'},
+    {q:'In "They fed the horses some oats" — what is the indirect object?',opts:['oats','They','the horses','fed'],ans:'the horses',exp:'"fed what some oats?" = "the horses." Horses is the IO. "Some oats" is the direct object.'},
+    {q:'Can you have an indirect object without a direct object?',opts:['Yes, always','Yes, sometimes','No — if there is only one object it is always the DO','No — the IO always comes first'],ans:'No — if there is only one object it is always the DO',exp:'You cannot have an IO without a DO. If there is only one object, it is ALWAYS a direct object.'},
+    {q:'Indirect objects are only found with ________ verbs.',opts:['linking','helping','action','intransitive'],ans:'action',exp:'Like direct objects, indirect objects only appear with action verbs.'},
+    {q:'In "The ski trip had given Lucia and me a wonderful vacation" — what is the IO?',opts:['ski trip','vacation','Lucia and me','wonderful'],ans:'Lucia and me',exp:'"given a wonderful vacation to whom?" = "Lucia and me." Compound indirect object.'},
+    {q:'In "Juan left you this message" — what is the direct object?',opts:['Juan','you','message','left'],ans:'message',exp:'"you" is the IO (left the message for whom? you). "message" is the DO (left what? this message).'},
+    {q:'In "Beth knitted herself a very pretty scarf" — what is the indirect object?',opts:['scarf','pretty','herself','knitted'],ans:'herself',exp:'"knitted a scarf for whom?" = "herself." Herself is the IO. "scarf" is the DO.'},
+  ],
+  s7:[
+    {q:'A sentence that makes a statement is called ________.',opts:['imperative','interrogative','declarative','exclamatory'],ans:'declarative',exp:'A declarative sentence makes a statement and ends with a period.'},
+    {q:'Which end mark does an interrogative sentence always use?',opts:['.','!','?','. or !'],ans:'?',exp:'An interrogative sentence asks a question and always ends with a question mark.'},
+    {q:'"Please open the window." — What type of sentence?',opts:['Declarative','Imperative','Interrogative','Exclamatory'],ans:'Imperative',exp:'This is a polite request — imperative. Most imperative sentences end with a period.'},
+    {q:'"What a beautiful day this is!" — What type of sentence?',opts:['Declarative','Imperative','Interrogative','Exclamatory'],ans:'Exclamatory',exp:'This expresses strong feeling and ends with an exclamation point — exclamatory.'},
+    {q:'What is the understood subject in an imperative sentence?',opts:['I','he or she','[you]','they'],ans:'[you]',exp:'In a command or request, the subject is the understood [you] — not stated out loud.'},
+    {q:'"Can you speak Spanish?" — What type of sentence?',opts:['Declarative','Imperative','Interrogative','Exclamatory'],ans:'Interrogative',exp:'This asks a question and ends with a question mark — interrogative.'},
+    {q:'"Wait!" — What type of sentence?',opts:['Declarative','Imperative — strong command','Interrogative','Exclamatory'],ans:'Imperative — strong command',exp:'A strong command ends with !, but it is still imperative (giving a command), not exclamatory.'},
+    {q:'"San Marino is the smallest republic in Europe." — What type?',opts:['Imperative','Interrogative','Exclamatory','Declarative'],ans:'Declarative',exp:'This makes a factual statement and ends with a period — declarative.'},
+    {q:'Which pair correctly matches sentence type and end mark?',opts:['Declarative = ?','Imperative = always !','Interrogative = ?','Exclamatory = .'],ans:'Interrogative = ?',exp:'Interrogative always ends with ?. Declarative ends with . · Imperative ends with . or ! · Exclamatory ends with !'},
+    {q:'"How I enjoy autumn!" — What type of sentence?',opts:['Declarative','Imperative','Interrogative','Exclamatory'],ans:'Exclamatory',exp:'This expresses strong feeling (joy) with an exclamation point — exclamatory sentence.'},
+  ],
+};
+
+const scores={},answered={};
+Object.keys(allQs).forEach(k=>{scores[k]=0;answered[k]=new Set();});
+
+function buildQ(key){
+  scores[key]=0; answered[key]=new Set();
+  const c=document.getElementById('quiz-'+key);
+  c.innerHTML='';
+  allQs[key].forEach((item,i)=>{
+    const d=document.createElement('div');
+    d.className='qq'; d.id=`qq-${key}-${i}`;
+    const shuffled=[...item.opts].sort(()=>Math.random()-.5);
+    d.innerHTML=`
+      <div class="qq-row"><div class="qq-num">${i+1}</div><div class="qq-text">${item.q}</div></div>
+      <div class="qq-opts">${shuffled.map(o=>`<button class="qq-opt" data-val="${o.replace(/"/g,'&quot;').replace(/'/g,'&#39;')}">${o}</button>`).join('')}</div>
+      <div class="qq-exp" id="qe-${key}-${i}"></div>`;
+    d.querySelectorAll('.qq-opt').forEach(btn=>{
+      btn.addEventListener('click',function(){
+        const dec=document.createElement('textarea');dec.innerHTML=this.dataset.val;
+        ansQ(key,i,dec.value,this,d);
+      });
+    });
+    c.appendChild(d);
+  });
+  updateScore(key);
+}
+
+function ansQ(key,i,chosen,btn,d){
+  if(answered[key].has(i)) return;
+  answered[key].add(i);
+  const item=allQs[key][i];
+  d.querySelectorAll('.qq-opt').forEach(b=>{
+    b.disabled=true;
+    const dec=document.createElement('textarea');dec.innerHTML=b.dataset.val;
+    if(dec.value===item.ans) b.classList.add('opt-correct');
+  });
+  const ok=(chosen===item.ans);
+  if(ok){btn.classList.add('opt-correct');d.classList.add('q-correct');scores[key]++;}
+  else{btn.classList.add('opt-wrong');d.classList.add('q-wrong');
+    d.querySelectorAll('.qq-opt').forEach(b=>{const dec=document.createElement('textarea');dec.innerHTML=b.dataset.val;if(dec.value===item.ans)b.classList.add('opt-reveal');});
+  }
+  const exp=document.getElementById(`qe-${key}-${i}`);
+  exp.className='qq-exp show '+(ok?'correct':'wrong');
+  exp.innerHTML=(ok?'✅ ':'❌ ')+item.exp;
+  updateScore(key);
+}
+
+function updateScore(key){
+  const t=allQs[key].length,s=scores[key];
+  document.getElementById('score-'+key).textContent=`${s} / ${t}`;
+  document.getElementById('kern-'+key).textContent='🍿'.repeat(s)+'🫙'.repeat(t-s);
+}
+
+function resetQ(key){buildQ(key);}
+
+window.addEventListener('DOMContentLoaded',()=>{buildQ('s1');built['s1']=true;});
+</script>
+</body>
+</html>
