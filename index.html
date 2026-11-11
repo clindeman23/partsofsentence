@@ -246,6 +246,8 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
   .sec-name{font-size:1rem;}
 }
 
+
+
 /* ===== PRACTICE TEST GAME: THE COPY DESK ===== */
 #g-anchor{scroll-margin-top:52px;height:0;}
 .g-masthead{background:var(--ink);color:#fff;padding:1.6rem 1.4rem 1.4rem;border-bottom:4px solid var(--red);margin-bottom:1.4rem;}
@@ -254,19 +256,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .g-mast-title em{color:var(--red);font-style:normal;}
 .g-mast-sub{font-size:.92rem;color:rgba(255,255,255,.68);margin-top:.9rem;line-height:1.65;max-width:52ch;}
 
-.g-modes{display:grid;gap:.9rem;margin:1.2rem 0;}
-.g-mode{display:grid;grid-template-columns:76px 1fr;gap:1rem;align-items:center;text-align:left;width:100%;background:var(--surface);border:1.5px solid var(--ink);padding:1rem 1.1rem;cursor:pointer;font:inherit;color:var(--ink);box-shadow:4px 4px 0 var(--ink);transition:transform .12s,box-shadow .12s;}
-.g-mode:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink);}
-.g-mode-n{font-family:'Playfair Display',serif;font-weight:900;font-size:2.7rem;line-height:1;color:var(--red);text-align:center;}
-.g-mode-t{font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;line-height:1.2;}
-.g-mode-d{font-size:.84rem;color:var(--muted);line-height:1.5;margin-top:.15rem;}
-.g-mode-b{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--red);margin-top:.4rem;letter-spacing:.08em;}
 
-.g-drill{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr));gap:.6rem;margin:0 0 1.2rem;}
-.g-drill-btn{display:grid;grid-template-columns:34px 1fr;grid-template-rows:auto auto;column-gap:.7rem;align-items:center;text-align:left;background:var(--paper2);border:1.5px solid var(--ink);padding:.65rem .8rem;cursor:pointer;font:inherit;color:var(--ink);min-height:52px;transition:background .12s,transform .12s;}
-.g-drill-n{grid-row:1 / span 2;font-family:'Playfair Display',serif;font-weight:900;font-size:1.5rem;color:var(--red);}
-.g-drill-t{font-weight:700;font-size:.88rem;line-height:1.25;}
-.g-drill-c{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--muted);}
 
 .g-howto{background:var(--surface);border:1.5px solid var(--line);border-left:4px solid var(--red);padding:1.1rem 1.2rem;margin:1.2rem 0;}
 .g-howto-t{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.12em;color:var(--red);margin-bottom:.6rem;}
@@ -382,8 +372,6 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 
 @media(max-width:600px){
   .g-masthead{padding:1.3rem 1.05rem 1.15rem;}
-  .g-mode{grid-template-columns:58px 1fr;gap:.75rem;padding:.9rem .9rem;}
-  .g-mode-n{font-size:2.1rem;}
   .g-card{padding:1rem 1rem 1.1rem;box-shadow:3px 3px 0 var(--ink);}
   .g-opt{font-size:.9rem;padding:.6rem .7rem;}
   .g-break-row{grid-template-columns:minmax(0,1fr) 64px 40px;gap:.5rem;}
@@ -401,13 +389,61 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 }
 
 @media(hover:hover){
-  .g-mode:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink);}
-  .g-drill-btn:hover{background:#fff;transform:translateY(-2px);}
   .g-opt:hover:not(:disabled){background:#fff;transform:translateX(3px);}
   .g-next:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink);}
   .g-btn:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--red);}
   .g-btn.red:hover{box-shadow:5px 5px 0 var(--ink);}
 }
+
+
+/* ---- workbook edition: section cards ---- */
+.g-secs{display:grid;gap:.85rem;margin:1.2rem 0;}
+.g-sec{display:grid;grid-template-columns:54px 1fr;gap:.9rem;align-items:center;text-align:left;width:100%;background:var(--surface);border:1.5px solid var(--ink);padding:.9rem 1rem;cursor:pointer;font:inherit;color:var(--ink);box-shadow:4px 4px 0 var(--ink);transition:transform .12s,box-shadow .12s;}
+.g-sec:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink);}
+.g-sec-n{font-family:'Playfair Display',serif;font-weight:900;font-size:2.3rem;line-height:1;color:var(--red);text-align:center;}
+.g-sec-t{font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;line-height:1.2;}
+.g-sec-d{font-size:.84rem;color:var(--muted);line-height:1.5;margin-top:.12rem;}
+.g-sec-m{display:flex;flex-wrap:wrap;gap:.25rem 1rem;margin-top:.45rem;font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.06em;color:var(--red);}
+.g-mixed{display:flex;align-items:center;justify-content:space-between;gap:1rem;width:100%;text-align:left;background:var(--ink);color:#fff;border:none;padding:1rem 1.1rem;cursor:pointer;font:inherit;box-shadow:4px 4px 0 var(--red);margin:.4rem 0 1.2rem;transition:transform .12s,box-shadow .12s;}
+.g-mixed:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--red);}
+.g-mixed-t{font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;}
+.g-mixed-d{font-size:.84rem;color:rgba(255,255,255,.65);margin-top:.1rem;line-height:1.5;}
+.g-mixed-b{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.08em;color:var(--red);margin-top:.35rem;}
+.g-mixed-n{font-family:'Playfair Display',serif;font-weight:900;font-size:2.4rem;color:var(--red);line-height:1;flex-shrink:0;}
+
+/* ---- tappable sentence ---- */
+.g-sent{margin-bottom:1rem;}
+.g-words{display:flex;flex-wrap:wrap;gap:.3rem .12rem;font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(1.05rem,3.7vw,1.3rem);color:var(--ink);}
+.g-w{display:inline-block;font:inherit;color:inherit;background:transparent;border:none;border-bottom:2px dashed rgba(107,100,87,.5);padding:.38rem .38rem .3rem;margin:0;border-radius:0;cursor:pointer;line-height:1.35;min-height:42px;transition:background .1s,color .1s;}
+span.g-w{cursor:default;border-bottom-color:transparent;min-height:0;padding:.38rem .3rem;}
+.g-w.sel{background:var(--ink);color:#fff;border-bottom-color:var(--ink);}
+.g-w.mid{background:rgba(26,26,26,.16);border-bottom-color:var(--ink);}
+.g-w:disabled{cursor:default;color:var(--ink);}
+.g-w.hl{background:rgba(230,57,70,.14);border-bottom:3px solid var(--red);}
+.g-w.right{background:var(--correct);color:#fff;border-bottom-color:var(--correct);}
+.g-w.wrong{background:var(--wrong);color:#fff;border-bottom-color:var(--wrong);}
+.g-w.missed{background:var(--cbg);color:var(--ink);outline:3px dashed var(--correct);outline-offset:-3px;}
+.g-w.gone{opacity:.2;text-decoration:line-through;}
+.g-tip{font-size:.8rem;color:var(--muted);line-height:1.5;margin:-.3rem 0 .85rem;}
+.g-checkrow{display:flex;align-items:center;justify-content:space-between;gap:.8rem;margin-top:1rem;flex-wrap:wrap;}
+.g-count{font-family:'DM Mono',monospace;font-size:.64rem;letter-spacing:.08em;color:var(--muted);flex:1 1 140px;line-height:1.5;}
+.g-check{font-family:'DM Mono',monospace;font-weight:700;font-size:.78rem;letter-spacing:.1em;background:var(--red);color:#fff;border:none;padding:.65rem 1.4rem;min-height:46px;cursor:pointer;box-shadow:3px 3px 0 var(--ink);}
+.g-check:disabled{opacity:.35;cursor:default;box-shadow:none;}
+@media(hover:hover){
+  .g-sec:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink);}
+  .g-mixed:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--red);}
+  .g-w:not(:disabled):not(.sel):not(.mid):hover{background:rgba(26,26,26,.08);}
+  .g-check:not(:disabled):hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink);}
+}
+@media(max-width:600px){
+  .g-sec{grid-template-columns:44px 1fr;gap:.7rem;padding:.8rem .85rem;}
+  .g-sec-n{font-size:1.9rem;}
+  .g-check{flex:1 1 100%;}
+}
+
+.g-back{display:inline-flex;align-items:center;font-family:'DM Mono',monospace;font-size:.7rem;font-weight:500;letter-spacing:.08em;background:transparent;color:var(--ink);border:1.5px solid var(--ink);padding:.5rem .95rem;min-height:42px;cursor:pointer;margin:0 0 1rem;}
+.g-back:active{background:var(--paper2);}
+@media(hover:hover){.g-back:hover{background:var(--ink);color:#fff;}}
 
 </style>
 </head>
@@ -440,7 +476,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
     <div class="hcard" onclick="sv('s5')"><div class="hcard-num">05</div><div class="hcard-title">Direct Objects</div><div class="hcard-desc">Who or what receives the action</div><div class="hcard-tag">READ →</div></div>
     <div class="hcard" onclick="sv('s6')"><div class="hcard-num">06</div><div class="hcard-title">Indirect Objects</div><div class="hcard-desc">To whom / for whom the action is done</div><div class="hcard-tag">READ →</div></div>
     <div class="hcard" onclick="sv('s7')"><div class="hcard-num">07</div><div class="hcard-title">Classifying Sentences</div><div class="hcard-desc">Declarative, imperative, interrogative, exclamatory</div><div class="hcard-tag">READ →</div></div>
-    <div class="hcard hcard-game" onclick="sv('game')"><div class="hcard-num">08</div><div class="hcard-title">Practice Test Game</div><div class="hcard-desc">100 questions with streaks, lifelines, and newsroom ranks</div><div class="hcard-tag">PLAY →</div></div>
+    <div class="hcard hcard-game" onclick="sv('game')"><div class="hcard-num">08</div><div class="hcard-title">Practice Test Game</div><div class="hcard-desc">Practice sentences by section, with streaks and newsroom ranks</div><div class="hcard-tag">PLAY →</div></div>
   </div>
 </div>
 
@@ -808,42 +844,33 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
   <div class="pnav"><button class="pnb" onclick="sv('s6')">← Indirect Objects</button><button class="pnb nx" onclick="sv('game')">★ Practice Test →</button></div>
 </div></div>
 
-<!-- S8: PRACTICE TEST GAME -->
+<!-- S8: PRACTICE TEST GAME (workbook edition) -->
 <div class="view" id="view-game"><div class="pw">
   <div id="g-anchor"></div>
   <div class="sec-banner"><div class="sec-num">08</div><div><div class="sec-label">PARTS OF A SENTENCE</div><div class="sec-name">Practice Test Game</div></div></div>
 
   <!-- MENU -->
   <div id="g-menu">
+    <button type="button" class="g-back" onclick="sv('home')">&larr; BACK TO HOME</button>
     <div class="g-masthead">
-      <div class="g-mast-kicker">ENGLISH I &nbsp;·&nbsp; FINAL EDITION</div>
+      <div class="g-mast-kicker">ENGLISH I &nbsp;·&nbsp; PRACTICE TEST</div>
       <div class="g-mast-title">THE COPY<br><em>DESK</em></div>
-      <div class="g-mast-sub">You are the copy editor. Every sentence on your desk has to be marked up correctly before the presses roll. Pick a mode and start editing.</div>
+      <div class="g-mast-sub">Pick the section you need to practice. Each one is only about ten questions, so you can work on one skill at a time.</div>
     </div>
 
-    <div class="g-modes">
-      <button type="button" class="g-mode" onclick="gStart('full')">
-        <div class="g-mode-n" id="g-n-full">100</div>
-        <div><div class="g-mode-t">Full Practice Test</div><div class="g-mode-d">Every question from all seven sections, mixed up like the real test.</div><div class="g-mode-b" id="g-best-full">NO SCORE YET</div></div>
-      </button>
-      <button type="button" class="g-mode" onclick="gStart('quick')">
-        <div class="g-mode-n">20</div>
-        <div><div class="g-mode-t">Quick Edit</div><div class="g-mode-d">A fast round of 20 random questions. Great for a warm up.</div><div class="g-mode-b" id="g-best-quick">NO SCORE YET</div></div>
-      </button>
-      <button type="button" class="g-mode" onclick="gToggleDrill()">
-        <div class="g-mode-n">7</div>
-        <div><div class="g-mode-t">Section Drill</div><div class="g-mode-d">Practice just one section until it feels easy.</div><div class="g-mode-b">PICK A SECTION</div></div>
-      </button>
-    </div>
-    <div id="g-drill" class="g-drill" style="display:none;"></div>
+    <div class="g-secs" id="g-secs"></div>
+
+    <button type="button" class="g-mixed" onclick="gStart('mixed')">
+      <div><div class="g-mixed-t">Mixed Review</div><div class="g-mixed-d">15 questions from every section, mixed together. Try this when you are ready for the test.</div><div class="g-mixed-b" id="g-best-mixed">NOT PLAYED YET</div></div>
+      <div class="g-mixed-n">15</div>
+    </button>
 
     <div class="g-howto">
-      <div class="g-howto-t">HOW THE GAME WORKS</div>
+      <div class="g-howto-t">HOW IT WORKS</div>
       <ul>
-        <li><strong>Score points.</strong> Every correct answer is worth 100.</li>
-        <li><strong>Build a streak.</strong> Every 3 correct in a row raises your multiplier, up to ×4. One wrong answer resets it.</li>
-        <li><strong>Use your lifelines.</strong> 50:50 removes two wrong answers. Style Guide shows the rule. You get 3 of each, and using one halves the points for that question.</li>
-        <li><strong>Keyboard fans:</strong> press A, B, C, or D to answer, then Enter for the next question.</li>
+        <li><strong>Tap the words.</strong> It works like underlining a sentence on paper. Each question tells you what to tap.</li>
+        <li><strong>Score points.</strong> Every correct answer is worth 100. Get 3 in a row and your next answer is worth ×2, and it keeps climbing up to ×4.</li>
+        <li><strong>Two lifelines.</strong> 50:50 crosses out half of the wrong words. Style Guide shows the rule. Using one halves the points for that question.</li>
       </ul>
     </div>
 
@@ -861,24 +888,30 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 
   <!-- PLAY -->
   <div id="g-play" style="display:none;">
+    <button type="button" class="g-back" onclick="gBack()">&larr; BACK TO SECTIONS</button>
     <div class="g-hud" id="g-hud">
       <div class="g-hud-cell"><div class="g-hud-l">SCORE</div><div class="g-hud-v" id="g-score">0</div></div>
       <div class="g-hud-cell"><div class="g-hud-l">STREAK</div><div class="g-hud-v" id="g-streak">0</div></div>
       <div class="g-hud-cell"><div class="g-hud-l">BONUS</div><div class="g-hud-v" id="g-mult">×1</div></div>
-      <div class="g-hud-cell"><div class="g-hud-l">QUESTION</div><div class="g-hud-v" id="g-num">1 / 100</div></div>
+      <div class="g-hud-cell"><div class="g-hud-l">QUESTION</div><div class="g-hud-v" id="g-num">1 / 10</div></div>
     </div>
     <div class="g-segs" id="g-segs"></div>
 
     <div class="g-card" id="g-card">
       <div class="g-cat" id="g-cat"></div>
-      <div class="g-sent" id="g-sent"><div class="g-sent-l">THE SENTENCE</div><div class="g-sent-t" id="g-sent-t"></div></div>
       <div class="g-q" id="g-q"></div>
+      <div class="g-tip" id="g-tip"></div>
+      <div class="g-sent" id="g-sent"><div class="g-sent-l">THE SENTENCE</div><div class="g-words" id="g-words"></div></div>
       <div class="g-hint" id="g-hint" style="display:none;"><strong>STYLE GUIDE:</strong> <span id="g-hint-t"></span></div>
       <div class="g-opts" id="g-opts"></div>
+      <div class="g-checkrow" id="g-checkrow" style="display:none;">
+        <div class="g-count" id="g-count"></div>
+        <button type="button" class="g-check" id="g-check" onclick="gCheck()" disabled>CHECK</button>
+      </div>
       <div class="g-life-row">
         <button type="button" class="g-life" id="g-fifty" onclick="gFifty()">50:50 <span id="g-fifty-n">×3</span></button>
         <button type="button" class="g-life" id="g-guide" onclick="gGuide()">STYLE GUIDE <span id="g-guide-n">×3</span></button>
-        <button type="button" class="g-quit" onclick="gQuit()">END TEST</button>
+        <button type="button" class="g-quit" onclick="gQuit()">END</button>
       </div>
       <div class="g-fb" id="g-fb" role="status" aria-live="polite" style="display:none;">
         <div class="g-stamp" id="g-stamp"></div>
@@ -891,6 +924,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 
   <!-- RESULTS -->
   <div id="g-results" style="display:none;">
+    <button type="button" class="g-back" onclick="gMenu()">&larr; BACK TO SECTIONS</button>
     <div class="g-res">
       <div class="g-res-kicker">FINAL EDITION</div>
       <div class="g-res-mode" id="g-res-mode"></div>
@@ -906,7 +940,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
       </div>
     </div>
 
-    <div class="g-break">
+    <div class="g-break" id="g-break-wrap">
       <div class="g-howto-t">HOW EACH SECTION WENT</div>
       <div id="g-break"></div>
     </div>
@@ -915,8 +949,9 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
       <button type="button" class="g-btn red" id="g-act-review" onclick="gToggleReview()">REVIEW MISSED</button>
       <button type="button" class="g-btn" id="g-act-retry" onclick="gRetryMissed()">RETRY MISSED</button>
       <button type="button" class="g-btn" id="g-act-weak" onclick="gDrillWeakest()">DRILL WEAKEST</button>
+      <button type="button" class="g-btn" id="g-act-next" onclick="gNextSection()">NEXT SECTION</button>
       <button type="button" class="g-btn ghost" onclick="gPlayAgain()">PLAY AGAIN</button>
-      <button type="button" class="g-btn ghost" onclick="gMenu()">MENU</button>
+      <button type="button" class="g-btn ghost" onclick="gMenu()">ALL SECTIONS</button>
     </div>
     <div id="g-review" style="display:none;"></div>
   </div>
@@ -1080,1237 +1115,1459 @@ function resetQ(key){buildQ(key);}
 
 window.addEventListener('DOMContentLoaded',()=>{buildQ('s1');built['s1']=true;});
 
+
+
 // =====================================================================
-// PRACTICE TEST GAME: THE COPY DESK
+// PRACTICE TEST GAME: THE COPY DESK (workbook edition)
 // =====================================================================
 const GQ = [
 {
 "c": "s1",
-"s": "The curious kitten from next door pounced on a ball of yarn.",
-"q": "What is the simple subject?",
-"a": "kitten",
+"t": "range",
 "w": [
-"door",
-"yarn",
-"ball"
+"Until",
+"recently,",
+"tourists",
+"could",
+"reach",
+"the",
+"tiny",
+"island",
+"only",
+"by",
+"boat."
 ],
-"e": "The simple subject is the main word. Door is inside the prepositional phrase from next door, and a subject is never inside a prepositional phrase."
+"q": "Tap the first and last word of the complete subject.",
+"e": "The complete subject is just tourists. Until recently is an introductory phrase that belongs to the predicate, because it tells when they could reach the island. Verb: could reach.",
+"a": [
+2,
+2
+]
 },
 {
 "c": "s1",
-"s": "Our school's talented marching band performed at halftime.",
-"q": "What is the complete subject?",
-"a": "Our school's talented marching band",
+"t": "range",
 "w": [
-"Our school's",
-"marching band performed",
-"performed at halftime"
+"About",
+"a",
+"half",
+"mile",
+"offshore",
+"is",
+"beautiful",
+"Buccoo",
+"Reef."
 ],
-"e": "The complete subject is the simple subject (band) plus every word that modifies it."
+"q": "Tap the first and last word of the complete subject.",
+"e": "This sentence is in inverted order. Find the verb, is, then ask who or what is. Beautiful Buccoo Reef is the complete subject. About a half mile offshore belongs to the predicate.",
+"a": [
+6,
+8
+]
 },
 {
 "c": "s1",
-"s": "Maria's older brother builds model airplanes in the garage.",
-"q": "What is the simple predicate (the verb)?",
-"a": "builds",
+"t": "range",
 "w": [
-"airplanes",
-"garage",
-"brother"
+"On",
+"Little",
+"Tobago",
+"Island,",
+"eager",
+"bird-watchers",
+"may",
+"spot",
+"several",
+"kinds",
+"of",
+"exotic",
+"birds."
 ],
-"e": "The simple predicate is the verb. Brother is the subject, and airplanes and garage are nouns."
+"q": "Tap the first and last word of the complete subject.",
+"e": "On Little Tobago Island is a prepositional phrase, and the subject is never inside one. Who may spot birds? Eager bird-watchers is the complete subject (the simple subject is bird-watchers).",
+"a": [
+4,
+5
+]
 },
 {
 "c": "s1",
-"s": "The quarterback threw the football across the field.",
-"q": "What is the complete predicate?",
-"a": "threw the football across the field",
+"t": "range",
 "w": [
-"The quarterback threw",
-"The quarterback",
-"the football across the field"
+"Different",
+"kinds",
+"of",
+"trees,",
+"shrubs,",
+"and",
+"wildlife",
+"are",
+"abundant",
+"on",
+"the",
+"islands."
 ],
-"e": "The complete predicate is the verb plus all the words that complete its meaning."
+"q": "Tap the first and last word of the complete subject.",
+"e": "Everything before the verb are is the complete subject. The simple subject is kinds.",
+"a": [
+0,
+6
+]
 },
 {
 "c": "s1",
-"s": "Several of the students forgot their homework.",
-"q": "What is the simple subject?",
-"a": "Several",
+"t": "range",
 "w": [
-"students",
-"homework",
-"forgot"
+"After",
+"telling",
+"the",
+"story,",
+"the",
+"kindhearted",
+"lady",
+"helped",
+"the",
+"child",
+"find",
+"his",
+"mother."
 ],
-"e": "Cross out the prepositional phrase of the students. Who forgot? Several."
+"q": "Tap the first and last word of the complete subject.",
+"e": "After telling the story is an introductory phrase. Who helped the child? The kindhearted lady is the complete subject, and lady is the simple subject.",
+"a": [
+4,
+6
+]
 },
 {
 "c": "s1",
-"s": "A tiny bird with bright blue feathers landed on the windowsill.",
-"q": "What is the complete subject?",
-"a": "A tiny bird with bright blue feathers",
+"t": "tap",
 "w": [
-"A tiny bird",
-"bright blue feathers",
-"landed on the windowsill"
+"The",
+"cat's",
+"thick",
+"fur",
+"was",
+"soft",
+"to",
+"the",
+"touch."
 ],
-"e": "The complete subject is the simple subject (bird) and all its modifiers, including the phrase with bright blue feathers."
+"q": "Tap the simple subject.",
+"e": "Fur is the simple subject. Cat's shows whose fur it is, and thick describes it. The complete subject is The cat's thick fur.",
+"a": [
+3
+]
 },
 {
 "c": "s1",
-"s": "The tired hikers had reached the summit by noon.",
-"q": "What is the simple predicate (the whole verb phrase)?",
-"a": "had reached",
+"t": "tap",
 "w": [
-"reached the summit",
-"hikers had",
-"by noon"
+"Suddenly,",
+"the",
+"old",
+"bridge",
+"began",
+"to",
+"sag",
+"in",
+"the",
+"middle."
 ],
-"e": "A verb phrase includes its helping verbs. Had is the helping verb and reached is the main verb."
+"q": "Tap the simple subject.",
+"e": "Suddenly is an adverb. Ask who or what began to sag: the old bridge. Bridge is the simple subject.",
+"a": [
+3
+]
 },
 {
 "c": "s1",
-"s": "Every player on the team must wear a helmet.",
-"q": "What is the simple subject?",
-"a": "player",
+"t": "tap",
 "w": [
-"team",
-"helmet",
-"must wear"
+"Cool,",
+"fresh",
+"air",
+"blew",
+"through",
+"the",
+"open",
+"window."
 ],
-"e": "Team is inside the prepositional phrase on the team. Who must wear a helmet? Every player, so the simple subject is player."
+"q": "Tap the simple subject.",
+"e": "Air is what blew. Cool and fresh describe it, and through the open window is a prepositional phrase.",
+"a": [
+2
+]
 },
 {
 "c": "s1",
-"s": "",
-"q": "Which part of a sentence tells whom or what the sentence is about?",
-"a": "the subject",
+"t": "tap",
 "w": [
-"the predicate",
-"the verb",
-"a prepositional phrase"
+"Nicci",
+"and",
+"Jackie",
+"sat",
+"on",
+"the",
+"porch",
+"swing",
+"for",
+"the",
+"photograph."
 ],
-"e": "The subject tells whom or what the sentence is about. The predicate tells something about the subject."
+"q": "Tap the verb.",
+"e": "Sat tells what Nicci and Jackie did. On the porch swing and for the photograph are prepositional phrases.",
+"a": [
+3
+]
 },
 {
 "c": "s1",
-"s": "The ancient oak tree in our backyard shades the whole house.",
-"q": "What is the complete predicate?",
-"a": "shades the whole house",
+"t": "tap",
 "w": [
-"The ancient oak tree in our backyard",
-"shades",
-"in our backyard"
+"We",
+"have",
+"made",
+"our",
+"final",
+"selection",
+"from",
+"the",
+"menu."
 ],
-"e": "The complete predicate is the verb and everything that goes with it. Shades alone is only the simple predicate."
+"q": "Tap every word of the verb, including the helping verb.",
+"e": "Have is the helping verb and made is the main verb. Together they form the verb phrase have made.",
+"a": [
+1,
+2
+]
 },
 {
 "c": "s1",
-"s": "Bright fireworks exploded over the harbor.",
-"q": "What is the simple subject?",
-"a": "fireworks",
+"t": "tap",
 "w": [
-"Bright",
-"harbor",
-"exploded"
+"Will",
+"Carter",
+"come",
+"to",
+"the",
+"party",
+"on",
+"Friday?"
 ],
-"e": "Bright describes fireworks. Harbor is inside the prepositional phrase over the harbor."
+"q": "Tap every word of the verb, including the helping verb.",
+"e": "In a question the verb phrase can be split. Turn it into a statement: Carter will come to the party on Friday. Will come is the verb and Carter is the subject.",
+"a": [
+0,
+2
+]
 },
 {
 "c": "s1",
-"s": "",
-"q": "Which statement about subjects is true?",
-"a": "The subject is never found inside a prepositional phrase.",
+"t": "tap",
 "w": [
-"The subject is always the first word of the sentence.",
-"The subject always comes right after the verb.",
-"The subject is always a proper noun."
+"A",
+"small",
+"red",
+"tulip",
+"was",
+"thanking",
+"Margarete",
+"for",
+"watering",
+"it!"
 ],
-"e": "Always cross out prepositional phrases first. The subject will never be inside one."
-},
-{
-"c": "s1",
-"s": "My grandmother's famous apple pie won first prize at the county fair.",
-"q": "What is the simple subject?",
-"a": "pie",
-"w": [
-"grandmother's",
-"prize",
-"fair"
-],
-"e": "Grandmother's, famous, and apple all describe pie. The simple subject is the main word, pie."
-},
-{
-"c": "s1",
-"s": "Dr. Chen's new research on sleep surprised many scientists.",
-"q": "What is the complete predicate?",
-"a": "surprised many scientists",
-"w": [
-"Dr. Chen's new research on sleep",
-"research on sleep surprised",
-"many scientists"
-],
-"e": "The subject is Dr. Chen's new research on sleep. The verb surprised and everything that goes with it is the complete predicate."
+"q": "Tap every word of the verb, including the helping verb.",
+"e": "Was thanking is the verb phrase. Watering belongs to the prepositional phrase for watering it, so it is not part of the verb.",
+"a": [
+4,
+5
+]
 },
 {
 "c": "s2",
-"s": "Behind the curtain stood a nervous magician.",
-"q": "What is the subject?",
-"a": "magician",
+"t": "tap",
 "w": [
-"curtain",
-"stood",
-"nervous"
+"The",
+"people",
+"of",
+"Mexico",
+"have",
+"a",
+"great",
+"appreciation",
+"of",
+"his",
+"work."
 ],
-"e": "Cross out the prepositional phrase Behind the curtain. Find the verb, stood. Who stood? A magician."
+"q": "Tap the simple subject.",
+"e": "Mexico is inside the prepositional phrase of Mexico, and a subject is never inside one. Who have an appreciation? The people. Verb: have.",
+"a": [
+1
+]
 },
 {
 "c": "s2",
-"s": "There is a spider on the ceiling.",
-"q": "What is the subject?",
-"a": "spider",
+"t": "tap",
 "w": [
-"There",
-"ceiling",
-"is"
+"His",
+"murals",
+"of",
+"Mexico's",
+"social",
+"problems",
+"are",
+"famous."
 ],
-"e": "There is never a subject. The subject follows the verb. What is there? A spider."
+"q": "Tap the simple subject.",
+"e": "Problems is inside the prepositional phrase of Mexico's social problems. The verb is are, and what are famous? His murals.",
+"a": [
+1
+]
 },
 {
 "c": "s2",
-"s": "Here are the tickets for tonight's concert.",
-"q": "What is the subject?",
-"a": "tickets",
-"w": [
-"Here",
-"concert",
-"tonight's"
-],
-"e": "Here is never a subject, and for tonight's concert is a prepositional phrase. What are here? The tickets."
-},
-{
-"c": "s2",
-"s": "Did your sister borrow my charger?",
-"q": "What is the subject?",
-"a": "sister",
-"w": [
-"charger",
-"Did",
-"my"
-],
-"e": "Turn the question into a statement: Your sister did borrow my charger. Now the subject is easy to spot."
-},
-{
-"c": "s2",
-"s": "Where have the other students gone?",
-"q": "What is the subject?",
-"a": "students",
-"w": [
-"Where",
-"gone",
-"have"
-],
-"e": "Rewrite it: The other students have gone somewhere. The students are who the sentence is about."
-},
-{
-"c": "s2",
-"s": "Please close the window.",
-"q": "What is the subject?",
-"a": "[you]",
-"w": [
-"window",
-"Please",
-"close"
-],
-"e": "This is a request. In commands and requests, the subject is the understood [you]."
-},
-{
-"c": "s2",
-"s": "Carlos, hand me that wrench.",
-"q": "What is the subject?",
-"a": "[you]",
-"w": [
-"Carlos",
-"wrench",
-"me"
-],
-"e": "Carlos is the person being spoken to, but the subject of a command is still the understood [you]."
-},
-{
-"c": "s2",
-"s": "In the middle of the night, a loud noise woke the whole neighborhood.",
-"q": "What is the subject?",
-"a": "noise",
-"w": [
-"night",
-"middle",
-"neighborhood"
-],
-"e": "Cross out In the middle of the night. What woke the neighborhood? A loud noise."
-},
-{
-"c": "s2",
-"s": "One of my friends plays the cello.",
-"q": "What is the subject?",
-"a": "One",
-"w": [
-"friends",
-"cello",
-"plays"
-],
-"e": "Cross out the prepositional phrase of my friends. Who plays? One."
-},
-{
-"c": "s2",
-"s": "How did the detective solve the mystery?",
-"q": "What is the subject?",
-"a": "detective",
+"t": "tap",
 "w": [
 "How",
-"mystery",
-"solve"
+"does",
+"the",
+"artist",
+"achieve",
+"the",
+"feeling",
+"of",
+"tranquillity",
+"in",
+"that",
+"picture?"
 ],
-"e": "Rewrite it: The detective did solve the mystery. The subject is detective."
+"q": "Tap the simple subject.",
+"e": "In a question the subject follows part of the verb phrase. Turn it into a statement: The artist does achieve the feeling of tranquillity in that picture. Verb: does achieve.",
+"a": [
+3
+]
 },
 {
 "c": "s2",
-"s": "On the top shelf of the closet sits a dusty trophy.",
-"q": "What is the subject?",
-"a": "trophy",
+"t": "tap",
 "w": [
-"shelf",
-"closet",
-"top"
+"What",
+"do",
+"you",
+"think",
+"of",
+"the",
+"muted",
+"colors?"
 ],
-"e": "On the top shelf of the closet is a long prepositional phrase. What sits there? A dusty trophy."
+"q": "Tap the simple subject.",
+"e": "Turn it into a statement: You do think what of the muted colors. The subject is you, and the verb is do think.",
+"a": [
+2
+]
 },
 {
 "c": "s2",
-"s": "There were three puppies in the box.",
-"q": "What is the subject?",
-"a": "puppies",
+"t": "tap",
+"w": [
+"Don't",
+"those",
+"soft",
+"pastel",
+"colors",
+"convey",
+"a",
+"sense",
+"of",
+"calm?"
+],
+"q": "Tap the simple subject.",
+"e": "Turn it into a statement: Those soft pastel colors do convey a sense of calm. Don't is part of the verb phrase, so the subject comes after it.",
+"a": [
+4
+]
+},
+{
+"c": "s2",
+"t": "tap",
 "w": [
 "There",
-"box",
-"three"
+"is",
+"a",
+"copy",
+"of",
+"that",
+"picture",
+"in",
+"this",
+"brochure",
+"about",
+"the",
+"artist."
 ],
-"e": "There is never a subject, and in the box is a prepositional phrase. What were there? Three puppies."
+"q": "Tap the simple subject.",
+"e": "There is almost never the subject. Find the verb, is, then ask what is there. A copy is. Of that picture, in this brochure, and about the artist are prepositional phrases.",
+"a": [
+3
+]
 },
 {
 "c": "s2",
-"s": "",
-"q": "What is the best first step for finding the subject of a question?",
-"a": "Rewrite the question as a statement",
+"t": "tap",
 "w": [
-"Assume the first word is the subject",
-"Circle the last noun in the sentence",
-"Cross out the verb"
+"Here",
+"is",
+"an",
+"article",
+"about",
+"Rivera."
 ],
-"e": "Turning a question into a statement puts the subject before the verb, where it is easy to find."
+"q": "Tap the simple subject.",
+"e": "Here is almost never the subject. What is here? An article. About Rivera is a prepositional phrase.",
+"a": [
+3
+]
 },
 {
 "c": "s2",
-"s": "Don't touch the wet paint.",
-"q": "What is the subject?",
-"a": "[you]",
+"t": "tap",
 "w": [
-"paint",
-"Don't",
-"touch"
+"Some",
+"of",
+"the",
+"murals",
+"show",
+"different",
+"aspects",
+"of",
+"Mexican",
+"history."
 ],
-"e": "This is a command, so the subject is the understood [you]."
+"q": "Tap the simple subject.",
+"e": "Murals is inside the prepositional phrase of the murals, so it cannot be the subject. Who or what show aspects? Some.",
+"a": [
+0
+]
 },
 {
 "c": "s2",
-"s": "Why were the lights flickering during the storm?",
-"q": "What is the subject?",
-"a": "lights",
+"t": "tap",
+"w": [
+"There",
+"have",
+"been",
+"many",
+"great",
+"artists",
+"of",
+"the",
+"twentieth",
+"century."
+],
+"q": "Tap the simple subject.",
+"e": "There is almost never the subject. The verb is have been. Who have there been? Many great artists. Of the twentieth century is a prepositional phrase.",
+"a": [
+5
+]
+},
+{
+"c": "s2",
+"t": "tap",
+"w": [
+"Is",
+"Rivera",
+"known",
+"for",
+"any",
+"particular",
+"style?"
+],
+"q": "Tap every word of the verb, including the helping verb.",
+"e": "Is known is the verb phrase, and the subject, Rivera, sits in the middle of it. Turn it into a statement: Rivera is known for any particular style.",
+"a": [
+0,
+2
+]
+},
+{
+"c": "s2",
+"t": "tap",
+"w": [
+"Have",
+"you",
+"seen",
+"photographs",
+"of",
+"his",
+"murals?"
+],
+"q": "Tap every word of the verb, including the helping verb.",
+"e": "Have seen is the verb phrase, split by the subject you. Turn it into a statement: You have seen photographs of his murals.",
+"a": [
+0,
+2
+]
+},
+{
+"c": "s3",
+"t": "tap",
+"w": [
+"Either",
+"Raoul",
+"or",
+"Marty",
+"will",
+"win",
+"the",
+"election."
+],
+"q": "Tap each part of the compound subject.",
+"e": "Either...or joins two subjects, Raoul and Marty. They share the verb will win.",
+"a": [
+1,
+3
+]
+},
+{
+"c": "s3",
+"t": "tap",
+"w": [
+"Sheep,",
+"goats,",
+"and",
+"chickens",
+"wandered",
+"around",
+"in",
+"the",
+"large",
+"yard."
+],
+"q": "Tap each part of the compound subject.",
+"e": "Three subjects share one verb, wandered. Yard is inside the prepositional phrase around in the large yard.",
+"a": [
+0,
+1,
+3
+]
+},
+{
+"c": "s3",
+"t": "tap",
+"w": [
+"In",
+"spite",
+"of",
+"Roger's",
+"objection,",
+"Kelly",
+"and",
+"Wilson",
+"painted",
+"the",
+"doghouse",
+"bright",
+"red."
+],
+"q": "Tap each part of the compound subject.",
+"e": "In spite of Roger's objection is a prepositional phrase, so Roger and objection are not subjects. Kelly and Wilson share the verb painted.",
+"a": [
+5,
+7
+]
+},
+{
+"c": "s3",
+"t": "tap",
+"w": [
+"The",
+"teacher",
+"reviewed",
+"the",
+"material",
+"and",
+"asked",
+"each",
+"student",
+"a",
+"question."
+],
+"q": "Tap each verb in the compound verb. Include helping verbs.",
+"e": "Reviewed and asked are joined by and, and they share the same subject, teacher.",
+"a": [
+2,
+6
+]
+},
+{
+"c": "s3",
+"t": "tap",
+"w": [
+"We",
+"talked,",
+"laughed,",
+"and",
+"sang",
+"during",
+"the",
+"long",
+"bus",
+"ride."
+],
+"q": "Tap each verb in the compound verb. Include helping verbs.",
+"e": "Talked, laughed, and sang are three verbs that share the subject We.",
+"a": [
+1,
+2,
+4
+]
+},
+{
+"c": "s3",
+"t": "tap",
+"w": [
+"The",
+"audience",
+"rose",
+"to",
+"their",
+"feet",
+"and",
+"applauded",
+"loudly."
+],
+"q": "Tap each verb in the compound verb. Include helping verbs.",
+"e": "Rose and applauded share the subject audience. To their feet is a prepositional phrase.",
+"a": [
+2,
+7
+]
+},
+{
+"c": "s3",
+"t": "tap",
+"w": [
+"Did",
+"Uncle",
+"William",
+"receive",
+"the",
+"package",
+"and",
+"examine",
+"it?"
+],
+"q": "Tap each verb in the compound verb. Include helping verbs.",
+"e": "Did is the helping verb for both receive and examine. Uncle William is the subject, sitting in the middle of the verb phrase.",
+"a": [
+0,
+3,
+7
+]
+},
+{
+"c": "s3",
+"t": "tap",
+"w": [
+"Jeanette",
+"and",
+"her",
+"brother",
+"will",
+"be",
+"at",
+"choir",
+"practice",
+"early."
+],
+"q": "Tap each part of the compound subject.",
+"e": "Jeanette and her brother are joined by and and share the verb will be. At choir practice is a prepositional phrase.",
+"a": [
+0,
+3
+]
+},
+{
+"c": "s3",
+"t": "tap",
+"w": [
+"Jacqui",
+"washed",
+"the",
+"clothes,",
+"hung",
+"them",
+"to",
+"dry,",
+"and",
+"folded",
+"them",
+"neatly."
+],
+"q": "Tap each verb in the compound verb. Include helping verbs.",
+"e": "Washed, hung, and folded are three verbs that share the subject Jacqui.",
+"a": [
+1,
+4,
+9
+]
+},
+{
+"c": "s3",
+"t": "tap",
+"w": [
+"When",
+"will",
+"the",
+"crew",
+"and",
+"passengers",
+"board",
+"the",
+"plane?"
+],
+"q": "Tap each part of the compound subject.",
+"e": "Turn it into a statement: The crew and passengers will board the plane. Crew and passengers share the verb will board.",
+"a": [
+3,
+5
+]
+},
+{
+"c": "s3",
+"t": "choice",
+"w": [
+"Bob",
+"and",
+"Geno",
+"put",
+"on",
+"their",
+"helmets",
+"and",
+"rode",
+"their",
+"bikes."
+],
+"q": "What is compound in this sentence?",
+"e": "Bob and Geno is a compound subject. Put on and rode is a compound verb. Both the subject and the verb can be compound in the same sentence.",
+"m": [],
+"o": [
+"Only the subject",
+"Only the verb",
+"Both the subject and the verb",
+"Neither"
+],
+"a": "Both the subject and the verb"
+},
+{
+"c": "s4",
+"t": "tap",
+"w": [
+"After",
+"years",
+"of",
+"hard",
+"work,",
+"she",
+"became",
+"a",
+"superb",
+"ballerina."
+],
+"q": "Tap the predicate nominative.",
+"e": "Became is a linking verb. Ballerina is a noun that refers to the subject she.",
+"a": [
+9
+]
+},
+{
+"c": "s4",
+"t": "tap",
+"w": [
+"What",
+"an",
+"excellent",
+"singer",
+"she",
+"is!"
+],
+"q": "Tap the predicate nominative.",
+"e": "Rearrange it: She is what an excellent singer. Singer is a predicate nominative that refers to she. A predicate nominative can come before the subject and verb.",
+"a": [
+3
+]
+},
+{
+"c": "s4",
+"t": "tap",
+"w": [
+"Her",
+"doves'",
+"names",
+"are",
+"Juliette,",
+"Musetta,",
+"and",
+"Luigi."
+],
+"q": "Tap each part of the compound predicate nominative.",
+"e": "Juliette, Musetta, and Luigi all identify the subject names. A predicate nominative can be compound.",
+"a": [
+4,
+5,
+7
+]
+},
+{
+"c": "s4",
+"t": "tap",
+"w": [
+"Carlos",
+"has",
+"grown",
+"much",
+"taller",
+"through",
+"the",
+"years."
+],
+"q": "Tap the predicate adjective.",
+"e": "Has grown is a linking verb here (it means has become). Taller is an adjective that modifies the subject Carlos.",
+"a": [
+4
+]
+},
+{
+"c": "s4",
+"t": "tap",
+"w": [
+"How",
+"beautiful",
+"her",
+"voice",
+"is!"
+],
+"q": "Tap the predicate adjective.",
+"e": "Rearrange it: Her voice is how beautiful. Beautiful modifies the subject voice. A predicate adjective can come before the subject and verb.",
+"a": [
+1
+]
+},
+{
+"c": "s4",
+"t": "tap",
+"w": [
+"How",
+"soft",
+"and",
+"delicate",
+"the",
+"baby",
+"bird",
+"seems!"
+],
+"q": "Tap each part of the compound predicate adjective.",
+"e": "Soft and delicate both modify the subject bird after the linking verb seems.",
+"a": [
+1,
+3
+]
+},
+{
+"c": "s4",
+"t": "choice",
+"w": [
+"Latex",
+"becomes",
+"rubbery",
+"when",
+"heated."
+],
+"q": "Is the highlighted word a predicate nominative or a predicate adjective?",
+"e": "Becomes is a linking verb. Rubbery is an adjective that modifies the subject latex.",
+"m": [
+2
+],
+"o": [
+"Predicate nominative (PN)",
+"Predicate adjective (PA)"
+],
+"a": "Predicate adjective (PA)"
+},
+{
+"c": "s4",
+"t": "choice",
+"w": [
+"Chico",
+"Mendes",
+"was",
+"a",
+"rubber",
+"tapper",
+"and",
+"a",
+"member",
+"of",
+"a",
+"workers'",
+"union."
+],
+"q": "Is the highlighted word a predicate nominative or a predicate adjective?",
+"e": "Was is a linking verb. Tapper is a noun that identifies the subject Chico Mendes.",
+"m": [
+5
+],
+"o": [
+"Predicate nominative (PN)",
+"Predicate adjective (PA)"
+],
+"a": "Predicate nominative (PN)"
+},
+{
+"c": "s4",
+"t": "choice",
+"w": [
+"Environmentalists",
+"from",
+"around",
+"the",
+"world",
+"took",
+"notice",
+"of",
+"Mendes's",
+"message,",
+"but",
+"local",
+"ranchers",
+"and",
+"farmers",
+"became",
+"angry",
+"with",
+"Mendes."
+],
+"q": "Is the highlighted word a predicate nominative or a predicate adjective?",
+"e": "Became is a linking verb. Angry is an adjective that modifies the subject ranchers and farmers.",
+"m": [
+16
+],
+"o": [
+"Predicate nominative (PN)",
+"Predicate adjective (PA)"
+],
+"a": "Predicate adjective (PA)"
+},
+{
+"c": "s4",
+"t": "choice",
+"w": [
+"He",
+"warned",
+"that",
+"the",
+"destruction",
+"of",
+"the",
+"Amazon",
+"rain",
+"forest",
+"was",
+"a",
+"threat",
+"to",
+"the",
+"world."
+],
+"q": "Is the highlighted word a predicate nominative or a predicate adjective?",
+"e": "Was is a linking verb. Threat is a noun that identifies the subject destruction.",
+"m": [
+12
+],
+"o": [
+"Predicate nominative (PN)",
+"Predicate adjective (PA)"
+],
+"a": "Predicate nominative (PN)"
+},
+{
+"c": "s5",
+"t": "choice",
+"w": [
+"The",
+"nobles",
+"wore",
+"steel",
+"armor",
+"and",
+"helmets."
+],
+"q": "Are the highlighted words direct objects?",
+"e": "Wore what? Armor and helmets. Both receive the action of the verb, so this is a compound direct object.",
+"m": [
+4,
+6
+],
+"o": [
+"Direct object (DO)",
+"Not a direct object (NDO)"
+],
+"a": "Direct object (DO)"
+},
+{
+"c": "s5",
+"t": "choice",
+"w": [
+"He",
+"was",
+"a",
+"successful",
+"warrior",
+"thanks",
+"to",
+"his",
+"great",
+"war",
+"horse."
+],
+"q": "Is the highlighted word a direct object?",
+"e": "Was is a linking verb, and direct objects only follow action verbs. Warrior is a predicate nominative that refers to He.",
+"m": [
+4
+],
+"o": [
+"Direct object (DO)",
+"Not a direct object (NDO)"
+],
+"a": "Not a direct object (NDO)"
+},
+{
+"c": "s5",
+"t": "choice",
+"w": [
+"A",
+"knight",
+"would",
+"often",
+"throw",
+"a",
+"scarf",
+"to",
+"his",
+"lady",
+"during",
+"the",
+"events."
+],
+"q": "Is the highlighted word a direct object?",
+"e": "Would throw what? A scarf. To his lady is a prepositional phrase.",
+"m": [
+6
+],
+"o": [
+"Direct object (DO)",
+"Not a direct object (NDO)"
+],
+"a": "Direct object (DO)"
+},
+{
+"c": "s5",
+"t": "choice",
+"w": [
+"Travelers",
+"took",
+"shelter",
+"in",
+"a",
+"castle",
+"or",
+"monastery."
+],
+"q": "Is the highlighted word a direct object?",
+"e": "Took what? Shelter. Castle and monastery are inside the prepositional phrase in a castle or monastery.",
+"m": [
+2
+],
+"o": [
+"Direct object (DO)",
+"Not a direct object (NDO)"
+],
+"a": "Direct object (DO)"
+},
+{
+"c": "s5",
+"t": "choice",
+"w": [
+"King",
+"Edward",
+"III's",
+"son",
+"was",
+"the",
+"Black",
+"Prince."
+],
+"q": "Is the highlighted word a direct object?",
+"e": "Was is a linking verb. Black Prince is a predicate nominative that identifies the subject son.",
+"m": [
+6,
+7
+],
+"o": [
+"Direct object (DO)",
+"Not a direct object (NDO)"
+],
+"a": "Not a direct object (NDO)"
+},
+{
+"c": "s5",
+"t": "choice",
+"w": [
+"King",
+"Edward",
+"III",
+"started",
+"a",
+"war",
+"with",
+"France."
+],
+"q": "Is the highlighted word a direct object?",
+"e": "Started what? A war. France is inside the prepositional phrase with France.",
+"m": [
+5
+],
+"o": [
+"Direct object (DO)",
+"Not a direct object (NDO)"
+],
+"a": "Direct object (DO)"
+},
+{
+"c": "s5",
+"t": "tap",
+"w": [
+"In",
+"1346,",
+"trading",
+"ships",
+"carried",
+"infected",
+"black",
+"rats",
+"into",
+"Italian",
+"ports."
+],
+"q": "Tap the direct object.",
+"e": "Carried what? Rats. Ports is inside the prepositional phrase into Italian ports.",
+"a": [
+7
+]
+},
+{
+"c": "s5",
+"t": "tap",
+"w": [
+"The",
+"bubonic",
+"plague",
+"killed",
+"thousands",
+"throughout",
+"Europe",
+"until",
+"1352."
+],
+"q": "Tap the direct object.",
+"e": "Killed whom? Thousands. Europe is inside the prepositional phrase throughout Europe.",
+"a": [
+4
+]
+},
+{
+"c": "s5",
+"t": "tap",
+"w": [
+"It",
+"attacked",
+"people",
+"of",
+"all",
+"ages."
+],
+"q": "Tap the direct object.",
+"e": "Attacked whom? People. Ages is inside the prepositional phrase of all ages.",
+"a": [
+2
+]
+},
+{
+"c": "s5",
+"t": "tap",
+"w": [
+"Medieval",
+"doctors",
+"found",
+"no",
+"cure",
+"for",
+"the",
+"plague."
+],
+"q": "Tap the direct object.",
+"e": "Found what? No cure. Plague is inside the prepositional phrase for the plague.",
+"a": [
+4
+]
+},
+{
+"c": "s6",
+"t": "choice",
+"w": [
+"Are",
+"you",
+"reading",
+"the",
+"book",
+"I",
+"gave",
+"you?"
+],
+"q": "Is the highlighted word a direct object or an indirect object?",
+"e": "Are you reading what? The book. Book receives the action of reading, so it is a direct object.",
+"m": [
+4
+],
+"o": [
+"Direct object (DO)",
+"Indirect object (IO)"
+],
+"a": "Direct object (DO)"
+},
+{
+"c": "s6",
+"t": "choice",
+"w": [
+"I",
+"mailed",
+"my",
+"brother",
+"the",
+"birthday",
+"gift."
+],
+"q": "Is the highlighted word a direct object or an indirect object?",
+"e": "Mailed what? The birthday gift, which is the direct object. Mailed it to whom? My brother, which is the indirect object.",
+"m": [
+3
+],
+"o": [
+"Direct object (DO)",
+"Indirect object (IO)"
+],
+"a": "Indirect object (IO)"
+},
+{
+"c": "s6",
+"t": "choice",
+"w": [
+"Please",
+"send",
+"me",
+"a",
+"copy",
+"of",
+"the",
+"letter."
+],
+"q": "Is the highlighted word a direct object or an indirect object?",
+"e": "Send what? A copy, which is the direct object. Send it to whom? Me, which is the indirect object.",
+"m": [
+2
+],
+"o": [
+"Direct object (DO)",
+"Indirect object (IO)"
+],
+"a": "Indirect object (IO)"
+},
+{
+"c": "s6",
+"t": "choice",
+"w": [
+"The",
+"flight",
+"attendant",
+"offered",
+"the",
+"passengers",
+"drinks",
+"and",
+"snacks."
+],
+"q": "Is the highlighted word a direct object or an indirect object?",
+"e": "Offered what? Drinks and snacks, the direct objects. Offered them to whom? The passengers, the indirect object.",
+"m": [
+5
+],
+"o": [
+"Direct object (DO)",
+"Indirect object (IO)"
+],
+"a": "Indirect object (IO)"
+},
+{
+"c": "s6",
+"t": "choice",
+"w": [
+"The",
+"dog",
+"chased",
+"its",
+"tail",
+"for",
+"several",
+"minutes."
+],
+"q": "Is the highlighted word a direct object or an indirect object?",
+"e": "Chased what? Its tail. There is only one object, and a lone object is always a direct object.",
+"m": [
+4
+],
+"o": [
+"Direct object (DO)",
+"Indirect object (IO)"
+],
+"a": "Direct object (DO)"
+},
+{
+"c": "s6",
+"t": "choice",
+"w": [
+"Have",
+"you",
+"given",
+"Janice",
+"your",
+"answer",
+"yet?"
+],
+"q": "Is the highlighted word a direct object or an indirect object?",
+"e": "Have given what? Your answer, the direct object. Given it to whom? Janice, the indirect object.",
+"m": [
+3
+],
+"o": [
+"Direct object (DO)",
+"Indirect object (IO)"
+],
+"a": "Indirect object (IO)"
+},
+{
+"c": "s6",
+"t": "tap",
 "w": [
 "Why",
-"storm",
-"flickering"
-],
-"e": "Rewrite it: The lights were flickering during the storm. During the storm is a prepositional phrase."
-},
-{
-"c": "s2",
-"s": "Across the valley echoed the sound of thunder.",
-"q": "What is the subject?",
-"a": "sound",
-"w": [
-"valley",
-"thunder",
-"echoed"
-],
-"e": "Cross out Across the valley and of thunder. What echoed? The sound."
-},
-{
-"c": "s3",
-"s": "Maya and her cousin baked cookies for the party.",
-"q": "What is compound in this sentence?",
-"a": "only the subject",
-"w": [
-"only the verb",
-"both the subject and the verb",
-"neither the subject nor the verb"
-],
-"e": "Maya and her cousin are two subjects joined by and. They share one verb, baked."
-},
-{
-"c": "s3",
-"s": "The dog barked and wagged its tail at the mail carrier.",
-"q": "What is compound in this sentence?",
-"a": "only the verb",
-"w": [
-"only the subject",
-"both the subject and the verb",
-"neither the subject nor the verb"
-],
-"e": "One subject, dog, does two things: barked and wagged. That is a compound verb."
-},
-{
-"c": "s3",
-"s": "Neither the coach nor the players saw the mistake.",
-"q": "Which pair of words forms the compound subject?",
-"a": "coach and players",
-"w": [
-"coach and mistake",
-"players and mistake",
-"saw and mistake"
-],
-"e": "Neither...nor joins the two subjects, coach and players. They share the verb saw."
-},
-{
-"c": "s3",
-"s": "Lila sang, danced, and acted in the school play.",
-"q": "How many verbs form the compound verb?",
-"a": "three",
-"w": [
-"two",
-"one",
-"four"
-],
-"e": "Sang, danced, and acted are three verbs that share the subject Lila."
-},
-{
-"c": "s3",
-"s": "My brother and I washed the car and waxed it.",
-"q": "What is compound in this sentence?",
-"a": "both the subject and the verb",
-"w": [
-"only the subject",
-"only the verb",
-"neither the subject nor the verb"
-],
-"e": "Brother and I is a compound subject. Washed and waxed is a compound verb."
-},
-{
-"c": "s3",
-"s": "Ice cream, cake, and fruit were served at the picnic.",
-"q": "What is compound in this sentence?",
-"a": "only the subject",
-"w": [
-"only the verb",
-"both the subject and the verb",
-"neither the subject nor the verb"
-],
-"e": "Three subjects share the one verb, were served."
-},
-{
-"c": "s3",
-"s": "",
-"q": "A compound subject is two or more subjects joined by a conjunction that share the same what?",
-"a": "verb",
-"w": [
-"object",
-"modifier",
-"prepositional phrase"
-],
-"e": "All the subjects in a compound subject share the same verb."
-},
-{
-"c": "s3",
-"s": "The runners stretched and jogged around the track before the race.",
-"q": "Which words form the compound verb?",
-"a": "stretched and jogged",
-"w": [
-"runners and track",
-"around the track",
-"before the race"
-],
-"e": "One subject, runners, does two actions: stretched and jogged."
-},
-{
-"c": "s3",
-"s": "Either Jordan or Priya will present the report.",
-"q": "Which words form the compound subject?",
-"a": "Jordan or Priya",
-"w": [
-"Priya will present",
-"will present",
-"the report"
-],
-"e": "Either...or joins Jordan and Priya. They share the verb will present."
-},
-{
-"c": "s3",
-"s": "The crowd cheered and clapped when the band took the stage.",
-"q": "Which words form a compound verb for the subject crowd?",
-"a": "cheered and clapped",
-"w": [
-"cheered and took",
-"crowd and band",
-"clapped and stage"
-],
-"e": "The crowd cheered and clapped. Took belongs to a different subject, band, so it is not part of that compound verb."
-},
-{
-"c": "s3",
-"s": "Paris and Rome are popular tourist destinations.",
-"q": "Which words form the compound subject?",
-"a": "Paris and Rome",
-"w": [
-"Rome and destinations",
-"popular and tourist",
-"are destinations"
-],
-"e": "Paris and Rome are two subjects joined by and, sharing the verb are."
-},
-{
-"c": "s3",
-"s": "We watched a movie, ate popcorn, and fell asleep on the couch.",
-"q": "Which description is correct?",
-"a": "One subject and a compound verb",
-"w": [
-"A compound subject and one verb",
-"A compound subject and a compound verb",
-"One subject and one verb"
-],
-"e": "We is the only subject. Watched, ate, and fell are three verbs that share it."
-},
-{
-"c": "s4",
-"s": "The soup smells delicious.",
-"q": "What is the word delicious?",
-"a": "a predicate adjective",
-"w": [
-"a predicate nominative",
-"a direct object",
-"an indirect object"
-],
-"e": "Smells is a linking verb here, and delicious describes the subject soup."
-},
-{
-"c": "s4",
-"s": "My aunt is a pediatrician.",
-"q": "What is the word pediatrician?",
-"a": "a predicate nominative",
-"w": [
-"a predicate adjective",
-"a direct object",
-"an indirect object"
-],
-"e": "The linking verb is joins aunt to pediatrician, a noun that renames the subject."
-},
-{
-"c": "s4",
-"s": "The students seemed nervous before the exam.",
-"q": "Which word is the subject complement?",
-"a": "nervous",
-"w": [
-"students",
-"exam",
-"before"
-],
-"e": "Seemed is a linking verb. Nervous is an adjective that describes the students."
-},
-{
-"c": "s4",
-"s": "Mr. Alvarez became the principal of our school.",
-"q": "Which word is the predicate nominative?",
-"a": "principal",
-"w": [
-"Alvarez",
-"school",
-"our"
-],
-"e": "Became is a linking verb. Principal renames Mr. Alvarez. Of our school is a prepositional phrase."
-},
-{
-"c": "s4",
-"s": "",
-"q": "Subject complements are used only with which kind of verb?",
-"a": "linking verbs",
-"w": [
-"action verbs",
-"helping verbs",
-"transitive verbs"
-],
-"e": "Predicate nominatives and predicate adjectives follow linking verbs only."
-},
-{
-"c": "s4",
-"s": "The new student looks friendly.",
-"q": "Which word is the subject complement?",
-"a": "friendly",
-"w": [
-"student",
-"looks",
-"new"
-],
-"e": "Looks is a linking verb here. Friendly describes the subject. New is just an adjective inside the subject."
-},
-{
-"c": "s4",
-"s": "The winner of the contest was she.",
-"q": "What is the word she?",
-"a": "a predicate nominative",
-"w": [
-"a predicate adjective",
-"a direct object",
-"a subject"
-],
-"e": "The linking verb was joins winner to she, a pronoun that refers back to the subject."
-},
-{
-"c": "s4",
-"s": "After the long hike, we felt exhausted.",
-"q": "What is the word exhausted?",
-"a": "a predicate adjective",
-"w": [
-"a predicate nominative",
-"a direct object",
-"an indirect object"
-],
-"e": "Felt is a linking verb here, and exhausted describes the subject we."
-},
-{
-"c": "s4",
-"s": "Pizza is my favorite food.",
-"q": "Which word is the predicate nominative?",
-"a": "food",
-"w": [
-"Pizza",
-"favorite",
-"my"
-],
-"e": "Food renames the subject Pizza. My and favorite describe food."
-},
-{
-"c": "s4",
-"s": "The lake grew calm after the storm.",
-"q": "Which statement is correct?",
-"a": "Grew is a linking verb and calm is a predicate adjective.",
-"w": [
-"Grew is an action verb and calm is a direct object.",
-"Grew is a linking verb and calm is a predicate nominative.",
-"Grew is an action verb and calm is a predicate adjective."
-],
-"e": "Grew means became here, so it links the subject lake to the adjective calm."
-},
-{
-"c": "s4",
-"s": "Our team captain is Dana.",
-"q": "What does the word Dana do in this sentence?",
-"a": "It renames the subject.",
-"w": [
-"It describes the subject.",
-"It receives the action of the verb.",
-"It tells to whom the action is done."
-],
-"e": "Dana is a predicate nominative. It identifies the subject captain."
-},
-{
-"c": "s4",
-"s": "The curtains look dusty.",
-"q": "What does the word dusty do in this sentence?",
-"a": "It describes the subject.",
-"w": [
-"It renames the subject.",
-"It receives the action of the verb.",
-"It tells for whom the action is done."
-],
-"e": "Dusty is a predicate adjective. It modifies the subject curtains."
-},
-{
-"c": "s4",
-"s": "Their dog remained quiet all night.",
-"q": "Which word is the subject complement?",
-"a": "quiet",
-"w": [
-"dog",
-"night",
-"remained"
-],
-"e": "Remained is a linking verb. Quiet describes the subject dog."
-},
-{
-"c": "s4",
-"s": "What a talented singer she is!",
-"q": "Which word is the predicate nominative?",
-"a": "singer",
-"w": [
-"she",
-"talented",
-"What"
-],
-"e": "Rearrange it: She is a talented singer. Singer renames the subject she."
-},
-{
-"c": "s4",
-"s": "How tasty these cookies are!",
-"q": "Which word is the predicate adjective?",
-"a": "tasty",
-"w": [
-"cookies",
-"these",
-"How"
-],
-"e": "Rearrange it: These cookies are tasty. Tasty describes the subject cookies."
-},
-{
-"c": "s4",
-"s": "",
-"q": "Which sentence contains a predicate nominative?",
-"a": "Mr. Lee is our bus driver.",
-"w": [
-"Mr. Lee waved to our bus driver.",
-"Mr. Lee looked tired.",
-"Mr. Lee drove our bus."
-],
-"e": "Driver renames Mr. Lee after the linking verb is. Tired is a predicate adjective, and bus is part of a direct object."
-},
-{
-"c": "s5",
-"s": "The chef in the kitchen sliced the tomatoes.",
-"q": "What is the direct object?",
-"a": "tomatoes",
-"w": [
-"chef",
-"kitchen",
-"sliced"
-],
-"e": "Sliced what? The tomatoes. Kitchen is inside a prepositional phrase."
-},
-{
-"c": "s5",
-"s": "Our neighbors planted a garden behind their house.",
-"q": "What is the direct object?",
-"a": "garden",
-"w": [
-"neighbors",
-"house",
-"planted"
-],
-"e": "Planted what? A garden. House is inside the prepositional phrase behind their house."
-},
-{
-"c": "s5",
-"s": "Mia carries her violin to school every day.",
-"q": "What is the direct object?",
-"a": "violin",
-"w": [
-"school",
-"day",
-"Mia"
-],
-"e": "Carries what? Her violin. To school is a prepositional phrase."
-},
-{
-"c": "s5",
-"s": "Did the storm damage the roof?",
-"q": "What is the direct object?",
-"a": "roof",
-"w": [
-"storm",
-"damage",
-"Did"
-],
-"e": "Rewrite it: The storm did damage the roof. Damaged what? The roof."
-},
-{
-"c": "s5",
-"s": "Tyler wrote a poem about his grandfather.",
-"q": "What is the direct object?",
-"a": "poem",
-"w": [
-"Tyler",
-"grandfather",
-"wrote"
-],
-"e": "Wrote what? A poem. Grandfather is inside the prepositional phrase about his grandfather."
-},
-{
-"c": "s5",
-"s": "The bus driver greeted us with a smile.",
-"q": "What is the direct object?",
-"a": "us",
-"w": [
-"driver",
-"smile",
-"bus"
-],
-"e": "Greeted whom? Us. With a smile is a prepositional phrase."
-},
-{
-"c": "s5",
-"s": "",
-"q": "A direct object answers which question?",
-"a": "Whom? or what? after the action verb",
-"w": [
-"To whom? or for whom?",
-"Where? or when?",
-"How? or why?"
-],
-"e": "Say the subject and the verb, then ask whom? or what?"
-},
-{
-"c": "s5",
-"s": "The explorers crossed the desert and climbed the mountain.",
-"q": "Which words are the direct objects?",
-"a": "desert and mountain",
-"w": [
-"explorers and desert",
-"crossed and climbed",
-"mountain and explorers"
-],
-"e": "Crossed what? The desert. Climbed what? The mountain."
-},
-{
-"c": "s5",
-"s": "Sophie is a talented artist.",
-"q": "Does this sentence have a direct object?",
-"a": "No. The verb is a linking verb, so artist is a predicate nominative.",
-"w": [
-"Yes. Artist is the direct object.",
-"Yes. Sophie is the direct object.",
-"Yes. Talented is the direct object."
-],
-"e": "Direct objects only follow action verbs. The linking verb is joins Sophie to artist."
-},
-{
-"c": "s5",
-"s": "Whom did the coach select for the team?",
-"q": "What is the direct object?",
-"a": "Whom",
-"w": [
-"coach",
-"team",
-"select"
-],
-"e": "Rewrite it: The coach did select whom for the team. Whom receives the action, and a direct object can come before the subject and verb."
-},
-{
-"c": "s5",
-"s": "We hiked through the forest and found a hidden waterfall.",
-"q": "What is the direct object?",
-"a": "waterfall",
-"w": [
-"forest",
-"hiked",
-"We"
-],
-"e": "Found what? A hidden waterfall. Forest is inside a prepositional phrase."
-},
-{
-"c": "s5",
-"s": "The wind blew the leaves across the yard.",
-"q": "What is the direct object?",
-"a": "leaves",
-"w": [
-"wind",
-"yard",
-"blew"
-],
-"e": "Blew what? The leaves. Across the yard is a prepositional phrase."
-},
-{
-"c": "s5",
-"s": "",
-"q": "Direct objects appear only after which kind of verb?",
-"a": "action verbs",
-"w": [
-"linking verbs",
-"forms of the verb be",
-"verbs in the past tense"
-],
-"e": "Direct objects receive the action, so they only follow action verbs."
-},
-{
-"c": "s5",
-"s": "Ms. Rivera graded our essays over the weekend.",
-"q": "What is the direct object?",
-"a": "essays",
-"w": [
-"Rivera",
-"weekend",
-"our"
-],
-"e": "Graded what? Our essays. Our just describes essays, and over the weekend is a prepositional phrase."
-},
-{
-"c": "s6",
-"s": "Grandpa gave me a pocket watch.",
-"q": "What is the indirect object?",
-"a": "me",
-"w": [
-"Grandpa",
-"watch",
-"gave"
-],
-"e": "Gave what? A pocket watch, which is the direct object. Gave it to whom? Me."
-},
-{
-"c": "s6",
-"s": "The teacher handed the class a pop quiz.",
-"q": "What is the indirect object?",
-"a": "class",
-"w": [
-"teacher",
-"quiz",
-"handed"
-],
-"e": "Handed a pop quiz to whom? The class. It sits between the verb and the direct object."
-},
-{
-"c": "s6",
-"s": "Dad bought my sister a new bicycle.",
-"q": "What is the direct object?",
-"a": "bicycle",
-"w": [
-"sister",
-"Dad",
-"bought"
-],
-"e": "Bought what? A new bicycle. Sister is the indirect object because it was bought for her."
-},
-{
-"c": "s6",
-"s": "Please send the manager your resume.",
-"q": "What is the indirect object?",
-"a": "manager",
-"w": [
-"resume",
-"send",
-"[you]"
-],
-"e": "Send what? Your resume, which is the direct object. Send it to whom? The manager."
-},
-{
-"c": "s6",
-"s": "Hailey told her parents the whole story.",
-"q": "What is the indirect object?",
-"a": "parents",
-"w": [
-"Hailey",
-"story",
-"told"
-],
-"e": "Told what? The whole story. Told it to whom? Her parents."
-},
-{
-"c": "s6",
-"s": "The librarian showed us the rare manuscript.",
-"q": "Which choice labels both objects correctly?",
-"a": "Indirect object: us. Direct object: manuscript.",
-"w": [
-"Indirect object: manuscript. Direct object: us.",
-"Indirect object: librarian. Direct object: us.",
-"Indirect object: us. Direct object: librarian."
-],
-"e": "Showed what? The manuscript. Showed it to whom? Us."
-},
-{
-"c": "s6",
-"s": "Jeremy wrote a letter to his pen pal.",
-"q": "Does this sentence have an indirect object?",
-"a": "No. Pen pal is inside the prepositional phrase to his pen pal.",
-"w": [
-"Yes. Pen pal is the indirect object.",
-"Yes. Letter is the indirect object.",
-"Yes. Jeremy is the indirect object."
-],
-"e": "An indirect object is never inside a prepositional phrase. Rewritten as Jeremy wrote his pen pal a letter, pen pal would be an indirect object."
-},
-{
-"c": "s6",
-"s": "Our coach taught the team a new play.",
-"q": "What is the indirect object?",
-"a": "team",
-"w": [
-"coach",
-"play",
-"taught"
-],
-"e": "Taught what? A new play. Taught it to whom? The team."
-},
-{
-"c": "s6",
-"s": "",
-"q": "Which shows the correct order in a sentence that has both objects?",
-"a": "verb, indirect object, direct object",
-"w": [
-"verb, direct object, indirect object",
-"indirect object, verb, direct object",
-"direct object, verb, indirect object"
-],
-"e": "The indirect object always sits between the action verb and the direct object."
-},
-{
-"c": "s6",
-"s": "The waiter brought Ethan and Zoe two glasses of water.",
-"q": "What is the indirect object?",
-"a": "Ethan and Zoe",
-"w": [
-"glasses",
-"water",
-"waiter"
-],
-"e": "Brought what? Two glasses of water. Brought them to whom? Ethan and Zoe, a compound indirect object."
-},
-{
-"c": "s6",
-"s": "",
-"q": "Can a sentence have an indirect object without a direct object?",
-"a": "No. If there is only one object, it is the direct object.",
-"w": [
-"Yes. The indirect object can stand alone.",
-"Yes, but only when the sentence is a question.",
-"Yes, but only with linking verbs."
-],
-"e": "An indirect object needs a direct object. A lone object is always a direct object."
-},
-{
-"c": "s6",
-"s": "My uncle made us pancakes on Sunday morning.",
-"q": "What is the direct object?",
-"a": "pancakes",
-"w": [
+"don't",
+"you",
+"tell",
 "us",
-"uncle",
-"morning"
+"a",
+"story?"
 ],
-"e": "Made what? Pancakes. Us is the indirect object, and on Sunday morning is a prepositional phrase."
+"q": "Tap the indirect object.",
+"e": "Tell what? A story, the direct object. Tell it to whom? Us, the indirect object.",
+"a": [
+4
+]
 },
 {
 "c": "s6",
-"s": "The company offered her a better job.",
-"q": "What is the indirect object?",
-"a": "her",
+"t": "tap",
 "w": [
-"company",
-"job",
-"better"
+"Aunt",
+"Maria",
+"brought",
+"me",
+"a",
+"souvenir",
+"from",
+"Thailand."
 ],
-"e": "Offered what? A better job. Offered it to whom? Her."
+"q": "Tap the indirect object.",
+"e": "Brought what? A souvenir. Brought it to whom? Me. Thailand is inside the prepositional phrase from Thailand.",
+"a": [
+3
+]
 },
 {
 "c": "s6",
-"s": "Kenji lent his best friend a video game.",
-"q": "What is the indirect object?",
-"a": "friend",
+"t": "tap",
 "w": [
-"Kenji",
-"game",
-"lent"
+"The",
+"driver",
+"told",
+"the",
+"officer",
+"his",
+"version",
+"of",
+"the",
+"accident."
 ],
-"e": "Lent what? A video game. Lent it to whom? His best friend."
+"q": "Tap the indirect object.",
+"e": "Told what? His version of the accident. Told it to whom? The officer.",
+"a": [
+4
+]
 },
 {
-"c": "s7",
-"s": "Please turn off your phones during the assembly.",
-"q": "What type of sentence is this?",
-"a": "imperative",
+"c": "s6",
+"t": "tap",
 "w": [
-"declarative",
-"interrogative",
-"exclamatory"
+"Lester",
+"loaned",
+"Miranda",
+"a",
+"sweater."
 ],
-"e": "It makes a request, and the subject is the understood [you]."
-},
-{
-"c": "s7",
-"s": "Have you finished your science project?",
-"q": "What type of sentence is this?",
-"a": "interrogative",
-"w": [
-"declarative",
-"imperative",
-"exclamatory"
-],
-"e": "It asks a question and ends with a question mark."
-},
-{
-"c": "s7",
-"s": "The museum opens at nine o'clock.",
-"q": "What type of sentence is this?",
-"a": "declarative",
-"w": [
-"imperative",
-"interrogative",
-"exclamatory"
-],
-"e": "It makes a statement and ends with a period."
-},
-{
-"c": "s7",
-"s": "What a spectacular sunset that was!",
-"q": "What type of sentence is this?",
-"a": "exclamatory",
-"w": [
-"declarative",
-"imperative",
-"interrogative"
-],
-"e": "It shows strong feeling and ends with an exclamation point."
-},
-{
-"c": "s7",
-"s": "Watch out!",
-"q": "What type of sentence is this?",
-"a": "imperative",
-"w": [
-"exclamatory",
-"declarative",
-"interrogative"
-],
-"e": "It is a strong command. A command that ends with an exclamation point is still imperative."
-},
-{
-"c": "s7",
-"s": "Where is the nearest library?",
-"q": "What type of sentence is this?",
-"a": "interrogative",
-"w": [
-"declarative",
-"imperative",
-"exclamatory"
-],
-"e": "It asks a question and ends with a question mark."
-},
-{
-"c": "s7",
-"s": "How brave those firefighters are!",
-"q": "What type of sentence is this?",
-"a": "exclamatory",
-"w": [
-"declarative",
-"imperative",
-"interrogative"
-],
-"e": "It expresses strong feeling and ends with an exclamation point."
-},
-{
-"c": "s7",
-"s": "Pick up your trash before you leave.",
-"q": "What type of sentence is this?",
-"a": "imperative",
-"w": [
-"declarative",
-"interrogative",
-"exclamatory"
-],
-"e": "It gives a command. The subject is the understood [you]."
-},
-{
-"c": "s7",
-"s": "Mount Everest is the tallest mountain on Earth.",
-"q": "What type of sentence is this?",
-"a": "declarative",
-"w": [
-"imperative",
-"interrogative",
-"exclamatory"
-],
-"e": "It states a fact and ends with a period."
-},
-{
-"c": "s7",
-"s": "",
-"q": "Which end mark does a declarative sentence use?",
-"a": "a period",
-"w": [
-"a question mark",
-"an exclamation point",
-"a comma"
-],
-"e": "A declarative sentence makes a statement and ends with a period."
-},
-{
-"c": "s7",
-"s": "Can you believe how fast this year went?",
-"q": "What type of sentence is this?",
-"a": "interrogative",
-"w": [
-"exclamatory",
-"declarative",
-"imperative"
-],
-"e": "Even though it contains how, it asks a question and ends with a question mark."
-},
-{
-"c": "s7",
-"s": "",
-"q": "Which sentence is imperative?",
-"a": "Bring your notebook to class tomorrow.",
-"w": [
-"I brought my notebook to class.",
-"Did you bring your notebook?",
-"What a heavy notebook that is!"
-],
-"e": "It gives a command with the understood subject [you]."
-},
-{
-"c": "s7",
-"s": "",
-"q": "Which sentence is exclamatory?",
-"a": "How quickly the time flew!",
-"w": [
-"The time flew by quickly.",
-"Did the time fly by?",
-"Please watch the time."
-],
-"e": "It shows strong feeling and ends with an exclamation point."
-},
-{
-"c": "s7",
-"s": "",
-"q": "Which type of sentence has an understood subject [you]?",
-"a": "imperative",
-"w": [
-"declarative",
-"interrogative",
-"exclamatory"
-],
-"e": "Commands and requests do not state the subject out loud. It is understood to be [you]."
+"q": "Tap the indirect object.",
+"e": "Loaned what? A sweater, the direct object. Loaned it to whom? Miranda, the indirect object.",
+"a": [
+2
+]
 }
 ];
 GQ.forEach(function(q,i){ q.id = i; });
 
-const G_CATS = {
-  s1:{tab:'01',name:'Subjects & Predicates'},
-  s2:{tab:'02',name:'Finding the Subject'},
-  s3:{tab:'03',name:'Compound Subjects & Verbs'},
-  s4:{tab:'04',name:'Subject Complements'},
-  s5:{tab:'05',name:'Direct Objects'},
-  s6:{tab:'06',name:'Indirect Objects'},
-  s7:{tab:'07',name:'Sentence Purpose'}
-};
+const G_SECS = [
+  {id:'s1',n:'01',name:'Subjects & Predicates',blurb:'Complete and simple subjects, and finding the verb.'},
+  {id:'s2',n:'02',name:'Finding the Subject',blurb:'Questions, here and there, and phrases that hide the subject.'},
+  {id:'s3',n:'03',name:'Compound Subjects & Verbs',blurb:'Two or more subjects or verbs joined by and or or.'},
+  {id:'s4',n:'04',name:'Subject Complements',blurb:'Predicate nominatives and predicate adjectives.'},
+  {id:'s5',n:'05',name:'Direct Objects',blurb:'Who or what receives the action.'},
+  {id:'s6',n:'06',name:'Indirect Objects',blurb:'To whom or for whom the action is done.'}
+];
+const G_SEC = {};
+G_SECS.forEach(function(s){ G_SEC[s.id] = s; });
+
 const G_GUIDE = {
-  s1:"The subject is never inside a prepositional phrase, so cross those out first. The simple subject is the main word. The complete subject adds every word that modifies it. The same goes for the verb and the complete predicate.",
-  s2:"Find the verb first, then ask who or what. Cross out prepositional phrases. Here and there are never subjects. Turn a question into a statement. In a command, the subject is the understood [you].",
-  s3:"A compound subject is two or more subjects that share the same verb. A compound verb is two or more verbs that share the same subject. Both can happen in one sentence.",
-  s4:"Subject complements only follow linking verbs. A predicate nominative is a noun or pronoun that renames the subject. A predicate adjective is an adjective that describes the subject.",
-  s5:"Say the subject and verb, then ask whom? or what? A direct object only follows an action verb and is never inside a prepositional phrase. It can come before the subject and verb in a question or exclamation.",
-  s6:"An indirect object sits between the action verb and the direct object and tells to whom, for whom, to what, or for what. It is never inside a prepositional phrase. No direct object means no indirect object.",
-  s7:"Declarative makes a statement (period). Imperative gives a command or request (period or exclamation point) and has the understood subject [you]. Interrogative asks a question (question mark). Exclamatory shows strong feeling (exclamation point)."
+  s1:"The subject tells whom or what the sentence is about, and the predicate tells something about the subject. The simple subject is the main word. The complete subject adds the words that modify it. The simple predicate is the verb. The subject is never inside a prepositional phrase.",
+  s2:"Find the verb first, then ask who or what. The subject is never in a prepositional phrase. Here and there are almost never the subject. In a question the subject usually follows the verb or part of the verb phrase, so try turning the question into a statement.",
+  s3:"A compound subject is two or more subjects joined by and or or that share the same verb. A compound verb is two or more verbs joined by and, but, or or that share the same subject. Helping verbs are part of the verb.",
+  s4:"A subject complement completes the meaning of a linking verb. A predicate nominative is a noun or pronoun that identifies or refers to the subject. A predicate adjective is an adjective that modifies the subject.",
+  s5:"A direct object tells who or what receives the action of an action verb. Say the subject and verb, then ask whom? or what? It is never inside a prepositional phrase, and it never follows a linking verb.",
+  s6:"An indirect object tells to whom, to what, for whom, or for what the action is done. It sits between the verb and the direct object. If a sentence has only one object, that object is the direct object."
 };
 const G_RANKS = [
   {min:95,title:'Editor-in-Chief',line:'Flawless copy. The whole newsroom is on its feet.'},
   {min:85,title:'Managing Editor',line:'Sharp eyes. Only a typo or two slipped through.'},
   {min:70,title:'Senior Reporter',line:'Solid work. Review what you missed and run it back.'},
-  {min:50,title:'Staff Writer',line:'You are getting there. Use the Style Guide and drill your weakest section.'},
-  {min:0, title:'Intern',line:'Everyone starts here. Reread the notes, then try a Section Drill.'}
+  {min:50,title:'Staff Writer',line:'You are getting there. Use the Style Guide and try this section again.'},
+  {min:0, title:'Intern',line:'Everyone starts here. Reread your notes, then give it another shot.'}
 ];
 const G_BANNERS = {
   3:['HOT OFF THE PRESS!','3 IN A ROW'],
@@ -2318,13 +2575,12 @@ const G_BANNERS = {
   8:['FRONT PAGE NEWS!','8 IN A ROW'],
   10:['STOP THE PRESSES!','10 IN A ROW'],
   15:['PULITZER PACE!','15 IN A ROW'],
-  20:['HALL OF FAME!','20 IN A ROW'],
-  30:['LEGENDARY EDITOR!','30 IN A ROW']
+  20:['HALL OF FAME!','20 IN A ROW']
 };
-const G_MODE_NAMES = {full:'FULL PRACTICE TEST',quick:'QUICK EDIT',drill:'SECTION DRILL',missed:'MISSED QUESTIONS RETRY'};
 
 let G = {mode:'',cat:'',custom:null,queue:[],i:0,score:0,streak:0,bestStreak:0,correct:0,answered:0,
-         fifty:3,guide:3,fiftyUsed:false,guideUsed:false,usedLife:false,locked:true,log:[],opts:[]};
+         fifty:3,guide:3,fiftyUsed:false,guideUsed:false,usedLife:false,locked:true,log:[],opts:[],
+         sel:[],rs:null,re:null,rOne:false,weakest:null};
 
 // ---------- helpers ----------
 function gEl(id){ return document.getElementById(id); }
@@ -2352,50 +2608,71 @@ function gAnchor(){
   if(el && el.scrollIntoView) el.scrollIntoView({behavior:'smooth',block:'start'});
 }
 function gMult(){ return Math.min(1 + Math.floor(G.streak/3), 4); }
-function gLoadBest(){ try{ return JSON.parse(localStorage.getItem('pos_best') || '{}'); }catch(e){ return {}; } }
-function gSaveBest(o){ try{ localStorage.setItem('pos_best', JSON.stringify(o)); }catch(e){} }
+function gLoadBest(){ try{ return JSON.parse(localStorage.getItem('pos_wb_best') || '{}'); }catch(e){ return {}; } }
+function gSaveBest(o){ try{ localStorage.setItem('pos_wb_best', JSON.stringify(o)); }catch(e){} }
+function gStrip(w){ return w.replace(/[.,;:!?]+$/,''); }
+function gAnswerIdx(q){
+  if(q.t === 'range'){ const r = []; for(let i=q.a[0];i<=q.a[1];i++) r.push(i); return r; }
+  return q.a;
+}
+function gAnswerText(q){
+  if(q.t === 'choice') return q.a;
+  if(q.t === 'range') return gStrip(q.w.slice(q.a[0], q.a[1]+1).join(' '));
+  return q.a.map(function(i){ return gStrip(q.w[i]); }).join(', ');
+}
+function gChosenText(q){
+  if(q.t === 'range'){ return G.rs === null ? '(nothing)' : gStrip(q.w.slice(G.rs, G.re+1).join(' ')); }
+  if(!G.sel.length) return '(nothing)';
+  return G.sel.slice().sort(function(a,b){ return a-b; }).map(function(i){ return gStrip(q.w[i]); }).join(', ');
+}
+function gWordBtns(){ return Array.prototype.slice.call(gEl('g-words').querySelectorAll('.g-w')); }
 
 // ---------- menu ----------
-function gBuildDrill(){
-  const box = gEl('g-drill'); box.innerHTML = '';
-  Object.keys(G_CATS).forEach(function(k){
-    const n = GQ.filter(function(q){ return q.c === k; }).length;
-    const b = gMake('button','g-drill-btn'); b.type = 'button';
-    b.appendChild(gMake('span','g-drill-n',G_CATS[k].tab));
-    b.appendChild(gMake('span','g-drill-t',G_CATS[k].name));
-    b.appendChild(gMake('span','g-drill-c',n + ' QUESTIONS'));
-    b.addEventListener('click', function(){ gStart('drill',k); });
+function gBuildMenu(){
+  const best = gLoadBest();
+  const box = gEl('g-secs'); box.innerHTML = '';
+  G_SECS.forEach(function(s){
+    const n = GQ.filter(function(q){ return q.c === s.id; }).length;
+    const b = gMake('button','g-sec'); b.type = 'button';
+    b.appendChild(gMake('div','g-sec-n',s.n));
+    const body = gMake('div');
+    body.appendChild(gMake('div','g-sec-t',s.name));
+    body.appendChild(gMake('div','g-sec-d',s.blurb));
+    const meta = gMake('div','g-sec-m');
+    meta.appendChild(gMake('span','',n + ' QUESTIONS'));
+    const bb = best[s.id];
+    meta.appendChild(gMake('span','', bb ? 'BEST: ' + bb.score.toLocaleString() + ' PTS · ' + bb.pct + '%' : 'NOT PLAYED YET'));
+    body.appendChild(meta);
+    b.appendChild(body);
+    b.addEventListener('click', function(){ gStart('section', s.id); });
     box.appendChild(b);
   });
+  const mb = best.mixed;
+  gEl('g-best-mixed').textContent = mb ? 'BEST: ' + mb.score.toLocaleString() + ' PTS · ' + mb.pct + '%' : 'NOT PLAYED YET';
 }
-function gRefreshMenu(){
-  const b = gLoadBest();
-  gEl('g-n-full').textContent = GQ.length;
-  gEl('g-best-full').textContent  = b.full  ? 'BEST: ' + b.full.toLocaleString()  + ' PTS' : 'NO SCORE YET';
-  gEl('g-best-quick').textContent = b.quick ? 'BEST: ' + b.quick.toLocaleString() + ' PTS' : 'NO SCORE YET';
-}
-function gMenu(){
-  gShow('g-menu'); gRefreshMenu();
-  gEl('g-drill').style.display = 'none';
-  gAnchor();
-}
-function gToggleDrill(){
-  const d = gEl('g-drill');
-  const open = d.style.display === 'none';
-  d.style.display = open ? 'grid' : 'none';
-  if(open && d.scrollIntoView) d.scrollIntoView({behavior:'smooth',block:'nearest'});
-}
+function gMenu(){ gShow('g-menu'); gBuildMenu(); gAnchor(); }
 
 // ---------- start a run ----------
+function gMixedPool(){
+  const picked = [];
+  const rest = [];
+  G_SECS.forEach(function(s){
+    const pool = gShuffle(GQ.filter(function(q){ return q.c === s.id; }));
+    pool.slice(0,2).forEach(function(q){ picked.push(q); });
+    pool.slice(2).forEach(function(q){ rest.push(q); });
+  });
+  gShuffle(rest).slice(0, 15 - picked.length).forEach(function(q){ picked.push(q); });
+  return gShuffle(picked);
+}
 function gStart(mode,cat,custom){
   let pool;
-  if(mode === 'full')        pool = gShuffle(GQ);
-  else if(mode === 'quick')  pool = gShuffle(GQ).slice(0,20);
-  else if(mode === 'drill')  pool = gShuffle(GQ.filter(function(q){ return q.c === cat; }));
-  else                       pool = gShuffle(custom || []);
+  if(mode === 'section')    pool = gShuffle(GQ.filter(function(q){ return q.c === cat; }));
+  else if(mode === 'mixed') pool = gMixedPool();
+  else                      pool = gShuffle(custom || []);
   if(!pool.length){ gMenu(); return; }
   G = {mode:mode,cat:cat||'',custom:custom||null,queue:pool,i:0,score:0,streak:0,bestStreak:0,correct:0,answered:0,
-       fifty:3,guide:3,fiftyUsed:false,guideUsed:false,usedLife:false,locked:true,log:[],opts:[]};
+       fifty:3,guide:3,fiftyUsed:false,guideUsed:false,usedLife:false,locked:true,log:[],opts:[],
+       sel:[],rs:null,re:null,rOne:false,weakest:null};
   const segs = gEl('g-segs'); segs.innerHTML = '';
   pool.forEach(function(){ segs.appendChild(gMake('span','g-seg')); });
   gShow('g-play');
@@ -2414,44 +2691,136 @@ function gHud(){
   gEl('g-num').textContent = Math.min(G.i+1, G.queue.length) + ' / ' + G.queue.length;
 }
 function gLifelines(){
+  const q = G.queue[G.i];
   gEl('g-fifty-n').textContent = '×' + G.fifty;
   gEl('g-guide-n').textContent = '×' + G.guide;
-  gEl('g-fifty').disabled = G.locked || G.fifty <= 0 || G.fiftyUsed;
+  gEl('g-fifty').disabled = G.locked || G.fifty <= 0 || G.fiftyUsed || !q || q.t === 'choice';
   gEl('g-guide').disabled = G.locked || G.guide <= 0 || G.guideUsed;
 }
 function gRender(){
   const q = G.queue[G.i];
+  const sec = G_SEC[q.c];
   G.locked = false; G.usedLife = false; G.fiftyUsed = false; G.guideUsed = false;
-  gEl('g-cat').textContent = G_CATS[q.c].tab + ' · ' + G_CATS[q.c].name.toUpperCase();
-  const sent = gEl('g-sent');
-  if(q.s){ sent.style.display = 'block'; gEl('g-sent-t').textContent = q.s; }
-  else   { sent.style.display = 'none'; }
+  G.sel = []; G.rs = null; G.re = null; G.rOne = false;
+  gEl('g-cat').textContent = sec.n + ' · ' + sec.name.toUpperCase();
   gEl('g-q').textContent = q.q;
+  const tip = gEl('g-tip');
+  if(q.t === 'range')                        tip.textContent = 'Tap the first word, then tap the last word. If it is only one word, tap it once and press CHECK.';
+  else if(q.t === 'tap' && q.a.length === 1) tip.textContent = 'Tap the word. It checks right away.';
+  else if(q.t === 'tap')                     tip.textContent = 'There are ' + q.a.length + ' to find. Tap a word again to un-pick it, then press CHECK.';
+  else                                       tip.textContent = '';
+  tip.style.display = tip.textContent ? 'block' : 'none';
+
+  const words = gEl('g-words'); words.innerHTML = '';
+  q.w.forEach(function(w,i){
+    if(q.t === 'choice'){
+      const s = gMake('span','g-w',w);
+      if(q.m && q.m.indexOf(i) >= 0) s.classList.add('hl');
+      words.appendChild(s);
+    } else {
+      const b = gMake('button','g-w',w); b.type = 'button';
+      b.addEventListener('click', function(){ gTapWord(i); });
+      words.appendChild(b);
+    }
+  });
+
   gEl('g-hint').style.display = 'none';
   gEl('g-fb').style.display = 'none';
-  G.opts = gShuffle([q.a].concat(q.w));
   const box = gEl('g-opts'); box.innerHTML = '';
-  G.opts.forEach(function(t,idx){
-    const b = gMake('button','g-opt'); b.type = 'button';
-    b.appendChild(gMake('span','g-opt-l','ABCD'.charAt(idx)));
-    b.appendChild(gMake('span','g-opt-t',t));
-    b.addEventListener('click', function(){ gAnswer(idx); });
-    box.appendChild(b);
-  });
+  if(q.t === 'choice'){
+    G.opts = gShuffle(q.o);
+    G.opts.forEach(function(t,idx){
+      const b = gMake('button','g-opt'); b.type = 'button';
+      b.appendChild(gMake('span','g-opt-l','ABCD'.charAt(idx)));
+      b.appendChild(gMake('span','g-opt-t',t));
+      b.addEventListener('click', function(){ gAnswer(idx); });
+      box.appendChild(b);
+    });
+    box.style.display = 'grid';
+    gEl('g-checkrow').style.display = 'none';
+  } else {
+    G.opts = [];
+    box.style.display = 'none';
+    gEl('g-checkrow').style.display = 'flex';
+    gUpdateCheck();
+  }
   const segs = gEl('g-segs').children;
   for(let k=0;k<segs.length;k++) segs[k].classList.remove('cur');
   if(segs[G.i]) segs[G.i].classList.add('cur');
   gHud(); gLifelines();
 }
 
+// ---------- tapping words ----------
+function gPaintSel(){
+  const q = G.queue[G.i];
+  const btns = gWordBtns();
+  btns.forEach(function(b){ b.classList.remove('sel','mid'); });
+  if(q.t === 'tap'){
+    G.sel.forEach(function(i){ btns[i].classList.add('sel'); });
+  } else if(q.t === 'range' && G.rs !== null){
+    for(let i=G.rs;i<=G.re;i++) btns[i].classList.add((i === G.rs || i === G.re) ? 'sel' : 'mid');
+  }
+  gUpdateCheck();
+}
+function gUpdateCheck(){
+  const q = G.queue[G.i];
+  const chk = gEl('g-check'), cnt = gEl('g-count');
+  if(q.t === 'tap'){
+    const n = q.a.length;
+    if(n === 1){ gEl('g-checkrow').style.display = 'none'; return; }
+    gEl('g-checkrow').style.display = 'flex';
+    cnt.textContent = G.sel.length + ' OF ' + n + ' PICKED';
+    chk.disabled = (G.sel.length !== n);
+  } else if(q.t === 'range'){
+    gEl('g-checkrow').style.display = 'flex';
+    if(G.rs === null){ cnt.textContent = 'TAP THE FIRST WORD'; chk.disabled = true; }
+    else if(G.rOne){ cnt.textContent = 'NOW TAP THE LAST WORD, OR PRESS CHECK IF IT IS ONE WORD'; chk.disabled = false; }
+    else { cnt.textContent = (G.re - G.rs + 1) + ((G.re === G.rs) ? ' WORD' : ' WORDS') + ' PICKED'; chk.disabled = false; }
+  }
+}
+function gTapWord(i){
+  if(G.locked) return;
+  const q = G.queue[G.i];
+  if(q.t === 'tap'){
+    const k = G.sel.indexOf(i);
+    if(k >= 0) G.sel.splice(k,1);
+    else {
+      if(G.sel.length >= q.a.length) return;
+      G.sel.push(i);
+    }
+    gPaintSel();
+    if(q.a.length === 1 && G.sel.length === 1) gGrade();
+  } else if(q.t === 'range'){
+    if(G.rs === null || !G.rOne){ G.rs = i; G.re = i; G.rOne = true; }
+    else { const f = G.rs; G.rs = Math.min(f,i); G.re = Math.max(f,i); G.rOne = false; }
+    gPaintSel();
+  }
+}
+function gCheck(){
+  if(G.locked) return;
+  if(gEl('g-check').disabled) return;
+  gGrade();
+}
+function gGrade(){
+  const q = G.queue[G.i];
+  let ok = false;
+  if(q.t === 'tap')        ok = (G.sel.length === q.a.length) && q.a.every(function(x){ return G.sel.indexOf(x) >= 0; });
+  else if(q.t === 'range') ok = (G.rs === q.a[0] && G.re === q.a[1]);
+  gResolve(ok, gChosenText(q));
+}
+
 // ---------- lifelines ----------
 function gFifty(){
   if(G.locked || G.fifty <= 0 || G.fiftyUsed) return;
   const q = G.queue[G.i];
-  const btns = Array.prototype.slice.call(gEl('g-opts').children);
-  const wrongIdx = [];
-  G.opts.forEach(function(t,i){ if(t !== q.a) wrongIdx.push(i); });
-  gShuffle(wrongIdx).slice(0,2).forEach(function(i){
+  if(q.t === 'choice') return;
+  const btns = gWordBtns();
+  const ansIdx = gAnswerIdx(q);
+  const cand = [];
+  btns.forEach(function(b,i){
+    if(ansIdx.indexOf(i) < 0 && !b.classList.contains('sel') && !b.classList.contains('mid')) cand.push(i);
+  });
+  gShuffle(cand).slice(0, Math.ceil(cand.length/2)).forEach(function(i){
     btns[i].disabled = true; btns[i].classList.add('gone');
   });
   G.fifty--; G.fiftyUsed = true; G.usedLife = true;
@@ -2467,9 +2836,8 @@ function gGuide(){
 }
 
 // ---------- answering ----------
-function gAnswer(idx){
+function gAnswer(idx){            // multiple choice
   if(G.locked) return;
-  G.locked = true;
   const q = G.queue[G.i];
   const chosen = G.opts[idx];
   const ok = (chosen === q.a);
@@ -2478,12 +2846,29 @@ function gAnswer(idx){
     b.disabled = true;
     if(G.opts[i] === q.a) b.classList.add('right');
   });
+  if(ok) btns[idx].classList.add('right'); else btns[idx].classList.add('wrong');
+  gResolve(ok, chosen);
+}
+function gResolve(ok, chosenText){
+  G.locked = true;
+  const q = G.queue[G.i];
+  if(q.t !== 'choice'){
+    const ansIdx = gAnswerIdx(q);
+    gWordBtns().forEach(function(b,i){
+      b.disabled = true;
+      b.classList.remove('sel','mid');
+      const isAns = ansIdx.indexOf(i) >= 0;
+      const picked = (q.t === 'tap') ? G.sel.indexOf(i) >= 0 : (G.rs !== null && i >= G.rs && i <= G.re);
+      if(isAns) b.classList.add(picked ? 'right' : 'missed');
+      else if(picked) b.classList.add('wrong');
+    });
+    gEl('g-checkrow').style.display = 'none';
+  }
   G.answered++;
   const mult = gMult();
   let pts = 0;
   const fb = gEl('g-fb');
   if(ok){
-    btns[idx].classList.add('right');
     pts = 100 * mult;
     if(G.usedLife) pts = Math.round(pts/2);
     G.score += pts; G.correct++; G.streak++;
@@ -2496,18 +2881,17 @@ function gAnswer(idx){
     if(G.usedLife) t += ' (halved, lifeline used)';
     gEl('g-fb-title').textContent = t;
   } else {
-    btns[idx].classList.add('wrong');
     G.streak = 0;
     const card = gEl('g-card');
     card.classList.remove('g-shake'); void card.offsetWidth; card.classList.add('g-shake');
     fb.className = 'g-fb bad';
     gEl('g-stamp').textContent = 'REVISE';
-    gEl('g-fb-title').textContent = 'Not quite. The correct answer is: ' + q.a;
+    gEl('g-fb-title').textContent = 'Not quite. The correct answer is: ' + gAnswerText(q);
   }
   gEl('g-fb-exp').textContent = q.e;
   gEl('g-next').textContent = (G.i + 1 >= G.queue.length) ? 'SEE RESULTS' : 'NEXT QUESTION';
   fb.style.display = 'block';
-  G.log.push({id:q.id, ok:ok, c:q.c, chosen:chosen});
+  G.log.push({id:q.id, ok:ok, c:q.c, chosen:chosenText});
   const segs = gEl('g-segs').children;
   if(segs[G.i]){ segs[G.i].classList.remove('cur'); segs[G.i].classList.add(ok ? 'ok' : 'bad'); }
   gHud(); gLifelines();
@@ -2518,13 +2902,21 @@ function gAnswer(idx){
 }
 function gNext(){
   if(!G.locked) return;
+  gEl('g-banner').classList.remove('show');
   G.i++;
   if(G.i >= G.queue.length){ gFinish(); }
   else { gRender(); gAnchor(); }
 }
+function gBack(){
+  // back to the section list; ask first if a round is in progress
+  if(G.answered > 0 && gEl('g-play').style.display === 'block'){
+    if(!window.confirm('Go back to the sections? Your progress on this round will be lost.')) return;
+  }
+  gMenu();
+}
 function gQuit(){
   if(G.answered === 0){ gMenu(); return; }
-  if(window.confirm('End the test now and see your results?')) gFinish();
+  if(window.confirm('End now and see your results?')) gFinish();
 }
 
 // ---------- fun effects ----------
@@ -2550,13 +2942,23 @@ function gConfetti(){
 }
 
 // ---------- results ----------
+function gModeName(){
+  if(G.mode === 'section') return 'SECTION ' + G_SEC[G.cat].n + ': ' + G_SEC[G.cat].name.toUpperCase();
+  if(G.mode === 'mixed') return 'MIXED REVIEW';
+  return 'RETRY: MISSED QUESTIONS';
+}
+function gNextSecIdx(){
+  if(G.mode !== 'section') return -1;
+  const k = G_SECS.map(function(s){ return s.id; }).indexOf(G.cat);
+  return (k >= 0 && k + 1 < G_SECS.length) ? k + 1 : -1;
+}
 function gFinish(){
   G.locked = true;
   const total = G.answered;
   const pct = total ? Math.round(G.correct/total*100) : 0;
   let rank = G_RANKS[G_RANKS.length-1];
   for(let r=0;r<G_RANKS.length;r++){ if(pct >= G_RANKS[r].min){ rank = G_RANKS[r]; break; } }
-  gEl('g-res-mode').textContent = G_MODE_NAMES[G.mode] + (G.mode==='drill' ? ': ' + G_CATS[G.cat].name.toUpperCase() : '');
+  gEl('g-res-mode').textContent = gModeName();
   gEl('g-rank').textContent = rank.title;
   gEl('g-rank-line').textContent = rank.line;
   gEl('g-res-score').textContent = G.score.toLocaleString();
@@ -2565,9 +2967,10 @@ function gFinish(){
   gEl('g-res-streak').textContent = G.bestStreak;
 
   const nb = gEl('g-newbest'); nb.style.display = 'none';
-  if((G.mode==='full' || G.mode==='quick') && total === G.queue.length && G.score > 0){
+  const key = (G.mode === 'section') ? G.cat : (G.mode === 'mixed' ? 'mixed' : null);
+  if(key && total === G.queue.length && G.score > 0){
     const best = gLoadBest();
-    if(!best[G.mode] || G.score > best[G.mode]){ best[G.mode] = G.score; gSaveBest(best); nb.style.display = 'inline-block'; }
+    if(!best[key] || G.score > best[key].score){ best[key] = {score:G.score, pct:pct}; gSaveBest(best); nb.style.display = 'inline-block'; }
   }
 
   const by = {};
@@ -2576,35 +2979,40 @@ function gFinish(){
     o.n++; if(x.ok) o.ok++;
   });
   const box = gEl('g-break'); box.innerHTML = '';
-  let weakest = null;
-  Object.keys(G_CATS).forEach(function(k){
-    const o = by[k]; if(!o) return;
+  let weakest = null, rows = 0;
+  G_SECS.forEach(function(s){
+    const o = by[s.id]; if(!o) return;
+    rows++;
     const p = Math.round(o.ok/o.n*100);
     const row = gMake('div','g-break-row');
-    row.appendChild(gMake('div','g-break-name',G_CATS[k].tab + ' · ' + G_CATS[k].name));
+    row.appendChild(gMake('div','g-break-name',s.n + ' · ' + s.name));
     const bar = gMake('div','g-bar'); const fill = document.createElement('i');
     fill.style.width = p + '%';
     if(p < 50) fill.className = 'low'; else if(p < 80) fill.className = 'mid';
     bar.appendChild(fill); row.appendChild(bar);
     row.appendChild(gMake('div','g-break-n',o.ok + '/' + o.n));
     box.appendChild(row);
-    if(o.n >= 2 && p < 100 && (!weakest || p < weakest.p)) weakest = {k:k,p:p};
+    if(p < 100 && (!weakest || p < weakest.p)) weakest = {k:s.id,p:p};
   });
+  gEl('g-break-wrap').style.display = rows > 1 ? 'block' : 'none';
 
   const missed = G.log.filter(function(x){ return !x.ok; });
-  G.weakest = weakest ? weakest.k : null;
+  G.weakest = (rows > 1 && weakest) ? weakest.k : null;
   gEl('g-act-review').style.display = missed.length ? '' : 'none';
   gEl('g-act-retry').style.display  = missed.length ? '' : 'none';
   gEl('g-act-review').textContent   = 'REVIEW MISSED (' + missed.length + ')';
   gEl('g-act-retry').textContent    = 'RETRY MISSED (' + missed.length + ')';
   const wk = gEl('g-act-weak');
-  if(G.weakest && G.mode !== 'drill'){ wk.style.display = ''; wk.textContent = 'DRILL: ' + G_CATS[G.weakest].name.toUpperCase(); }
+  if(G.weakest){ wk.style.display = ''; wk.textContent = 'PRACTICE: ' + G_SEC[G.weakest].name.toUpperCase(); }
   else wk.style.display = 'none';
+  const nx = gEl('g-act-next'), ni = gNextSecIdx();
+  if(ni >= 0){ nx.style.display = ''; nx.textContent = 'NEXT: ' + G_SECS[ni].name.toUpperCase(); }
+  else nx.style.display = 'none';
   gEl('g-review').style.display = 'none'; gEl('g-review').innerHTML = '';
 
   gShow('g-results');
   gAnchor();
-  if(pct >= 85 && total >= 10) gConfetti();
+  if(pct >= 85 && total >= 5) gConfetti();
 }
 function gToggleReview(){
   const box = gEl('g-review');
@@ -2612,16 +3020,17 @@ function gToggleReview(){
   box.innerHTML = '';
   G.log.filter(function(x){ return !x.ok; }).forEach(function(x){
     const q = GQ[x.id];
+    const sec = G_SEC[q.c];
     const item = gMake('div','g-review-item');
-    item.appendChild(gMake('div','g-review-cat',G_CATS[q.c].tab + ' · ' + G_CATS[q.c].name.toUpperCase()));
-    if(q.s) item.appendChild(gMake('div','g-review-s',q.s));
+    item.appendChild(gMake('div','g-review-cat',sec.n + ' · ' + sec.name.toUpperCase()));
+    item.appendChild(gMake('div','g-review-s',q.w.join(' ')));
     item.appendChild(gMake('div','g-review-q',q.q));
     const a = gMake('div','g-review-a');
     a.appendChild(document.createTextNode('Your answer: '));
     a.appendChild(gMake('span','no',x.chosen));
     a.appendChild(document.createElement('br'));
     a.appendChild(document.createTextNode('Correct answer: '));
-    a.appendChild(gMake('span','yes',q.a));
+    a.appendChild(gMake('span','yes',gAnswerText(q)));
     item.appendChild(a);
     item.appendChild(gMake('div','g-review-e',q.e));
     box.appendChild(item);
@@ -2633,27 +3042,32 @@ function gRetryMissed(){
   const list = G.log.filter(function(x){ return !x.ok; }).map(function(x){ return GQ[x.id]; });
   gStart('missed','',list);
 }
-function gDrillWeakest(){ if(G.weakest) gStart('drill',G.weakest); }
+function gDrillWeakest(){ if(G.weakest) gStart('section', G.weakest); }
+function gNextSection(){ const ni = gNextSecIdx(); if(ni >= 0) gStart('section', G_SECS[ni].id); }
 function gPlayAgain(){ const m = G.mode, c = G.cat, cu = G.custom; gStart(m,c,cu); }
 
-// ---------- keyboard: A-D or 1-4 to answer, arrow right for next ----------
+// ---------- keyboard: A-D for choice questions, Enter to check ----------
 document.addEventListener('keydown', function(e){
   const view = gEl('view-game');
   if(!view || !view.classList.contains('active')) return;
   if(gEl('g-play').style.display !== 'block') return;
   if(e.metaKey || e.ctrlKey || e.altKey) return;
+  const q = G.queue[G.i];
   const k = e.key.toLowerCase();
-  const map = {a:0,b:1,c:2,d:3,'1':0,'2':1,'3':2,'4':3};
-  if(!G.locked && Object.prototype.hasOwnProperty.call(map,k)){
-    const b = gEl('g-opts').children[map[k]];
-    if(b && !b.disabled){ e.preventDefault(); gAnswer(map[k]); }
+  if(!G.locked && q && q.t === 'choice'){
+    const map = {a:0,b:1,c:2,d:3,'1':0,'2':1,'3':2,'4':3};
+    if(Object.prototype.hasOwnProperty.call(map,k)){
+      const b = gEl('g-opts').children[map[k]];
+      if(b && !b.disabled){ e.preventDefault(); gAnswer(map[k]); }
+    }
+  } else if(!G.locked && q && q.t !== 'choice' && k === 'enter' && document.activeElement === document.body){
+    e.preventDefault(); gCheck();
   } else if(G.locked && k === 'arrowright'){
     e.preventDefault(); gNext();
   }
 });
 
-gBuildDrill();
-gRefreshMenu();
+gBuildMenu();
 
 </script>
 </body>
